@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "scenarios": [
+    {
+      "name": "shared_failure",
+      "description": "A and B share AP1; C uses AP2. Both groups have availability 0.8.",
+      "options": {"budget": 2, "message_bytes": 512, "deadline_millis": 15000, "lambda": 1, "unknown_penalty": 0.5},
+      "groups": [{"id": "AP1", "up_probability": "0.8"}, {"id": "AP2", "up_probability": "0.8"}],
+      "relays": [
+        {"observed": {"id": "A", "availability": 0.72, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP1"]}, "conditional_delivery": "0.9", "actual_groups": ["AP1"]},
+        {"observed": {"id": "B", "availability": 0.68, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP1"]}, "conditional_delivery": "0.85", "actual_groups": ["AP1"]},
+        {"observed": {"id": "C", "availability": 0.56, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP2"]}, "conditional_delivery": "0.7", "actual_groups": ["AP2"]}
+      ]
+    },
+    {
+      "name": "independent_failures",
+      "description": "Delivery events are independent; the observer still penalizes joint selection of A and B.",
+      "options": {"budget": 2, "message_bytes": 512, "deadline_millis": 15000, "lambda": 1, "unknown_penalty": 0.5},
+      "groups": [],
+      "relays": [
+        {"observed": {"id": "A", "availability": 0.72, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP1"]}, "conditional_delivery": "0.72", "actual_groups": []},
+        {"observed": {"id": "B", "availability": 0.68, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP1"]}, "conditional_delivery": "0.68", "actual_groups": []},
+        {"observed": {"id": "C", "availability": 0.56, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP2"]}, "conditional_delivery": "0.56", "actual_groups": []}
+      ]
+    },
+    {
+      "name": "weak_alternative",
+      "description": "Shared failure remains, but C has conditional delivery probability 0.1.",
+      "options": {"budget": 2, "message_bytes": 512, "deadline_millis": 15000, "lambda": 1, "unknown_penalty": 0.5},
+      "groups": [{"id": "AP1", "up_probability": "0.8"}, {"id": "AP2", "up_probability": "0.8"}],
+      "relays": [
+        {"observed": {"id": "A", "availability": 0.72, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP1"]}, "conditional_delivery": "0.9", "actual_groups": ["AP1"]},
+        {"observed": {"id": "B", "availability": 0.68, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP1"]}, "conditional_delivery": "0.85", "actual_groups": ["AP1"]},
+        {"observed": {"id": "C", "availability": 0.08, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["AP2"]}, "conditional_delivery": "0.1", "actual_groups": ["AP2"]}
+      ]
+    },
+    {
+      "name": "wrong_labels",
+      "description": "Physical A/B dependence remains, but reported labels incorrectly group A with C.",
+      "options": {"budget": 2, "message_bytes": 512, "deadline_millis": 15000, "lambda": 1, "unknown_penalty": 0.5},
+      "groups": [{"id": "AP1", "up_probability": "0.8"}, {"id": "AP2", "up_probability": "0.8"}],
+      "relays": [
+        {"observed": {"id": "A", "availability": 0.72, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["wrong-X"]}, "conditional_delivery": "0.9", "actual_groups": ["AP1"]},
+        {"observed": {"id": "B", "availability": 0.68, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["wrong-Y"]}, "conditional_delivery": "0.85", "actual_groups": ["AP1"]},
+        {"observed": {"id": "C", "availability": 0.56, "queue_fraction": 0, "free_bytes": 8388608, "transfer_millis": 100, "report_age_millis": 0, "risk_known": true, "risks": ["wrong-X"]}, "conditional_delivery": "0.7", "actual_groups": ["AP2"]}
+      ]
+    }
+  ]
+}

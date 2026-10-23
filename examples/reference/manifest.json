@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "model": "preplaced_snapshot_v1",
+  "base_seed": 42,
+  "runs": 30,
+  "trials_per_run": 10000,
+  "config_sha256": "f38aa5d6caa434be518615829de9a102be823f913d24d6bbdd85cdc6e7744443",
+  "go_version": "go1.27.3",
+  "goos": "linux",
+  "goarch": "amd64",
+  "bootstrap_samples": 2000
+}
