@@ -1,0 +1,10 @@
+{
+  "base_seed": 42,
+  "config_sha256": "c0993c88ddc2c326ff93e37ca263b74046ed21303958d1c907c193d034cbb612",
+  "go_version": "go1.27.3",
+  "goarch": "amd64",
+  "goos": "linux",
+  "model": "timeline-v2",
+  "report": "first run contains full replay; runs.csv contains all replications",
+  "runs": 30
+}

@@ -3,3 +3,4 @@
 /relaylab.exe
 /coverage.out
 *.test
+node_modules/

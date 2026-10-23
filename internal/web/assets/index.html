@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Relay Lab — исследование доставки телеметрии</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="/" aria-label="Relay Lab"><span class="brand-icon">R</span> RELAY<span class="muted">/</span>LAB</a>
+  <div class="mast-meta"><span class="status-dot"></span> Локальный стенд <span class="version">GO · V0.2</span></div>
+</header>
+<main>
+  <section class="intro">
+    <div><p class="eyebrow">Лаборатория распределённых систем</p><h1>Когда связь прерывается,<br>важно, где остались копии.</h1><p class="intro-text">Один поток телеметрии. Одинаковые отказы. Разные правила выбора ретрансляторов.<br>Посмотрите, как решения влияют на доставку, очереди и расход канала.</p></div>
+    <aside class="model-note"><span class="tag">ДИСКРЕТНО-СОБЫТИЙНАЯ МОДЕЛЬ</span><p>Решения и события рассчитывает Go.<br>Браузер воспроизводит журнал опыта.</p><small>Модельные миллисекунды и байты приложения.<br>Сетевые агенты и радиооборудование не подключены.</small></aside>
+  </section>
+
+  <section class="scenario-section" aria-label="Выбор сценария">
+    <div class="section-caption"><span>01 / Условия опыта</span><span id="presetCount"></span></div>
+    <div class="presets" id="presets"></div>
+    <div class="scenario-description"><span class="scenario-label" id="scenarioName">Загрузка</span><p id="description">Подключаем локальный вычислитель…</p></div>
+    <form id="settings" class="settings">
+      <label>Seed<input id="seed" type="number" min="0" max="2147483647" step="1" value="42"></label>
+      <label>Бюджет копий K<select id="budget"><option>1</option><option selected>2</option><option>3</option></select></label>
+      <label>Штраф λ<input id="lambda" type="number" min="0" max="10" step="0.25" value="1"></label>
+      <label>Срок, с<input id="ttl" type="number" min="1" max="30" step="1" value="12"></label>
+      <label>Сообщений / с<input id="rate" type="number" min="1" max="20" step="1" value="4"></label>
+      <button class="button primary" type="submit" id="build">Пересчитать опыт <span>↗</span></button>
+    </form>
+    <p class="error" id="error" role="alert" hidden></p>
+  </section>
+
+  <section class="replay-section">
+    <div class="section-caption"><span>02 / Сравнение на общей временной шкале</span><span id="phase" class="phase">Готовим модель</span></div>
+    <div class="playback">
+      <button class="button primary compact" id="play" disabled>▶ Воспроизвести</button>
+      <button class="button icon" id="reset" title="В начало" aria-label="В начало">↺</button>
+      <button class="button compact" id="step">+1 с</button>
+      <button class="button compact" id="jump">К отказу</button>
+      <input id="time" type="range" min="0" max="45000" step="200" value="0" aria-label="Время воспроизведения">
+      <output id="clock">00.0 / 45.0 с</output>
+      <label class="speed-label">Скорость<select id="speed" aria-label="Скорость воспроизведения"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></label>
+    </div>
+    <div class="comparison" id="comparison">
+      <article class="panel" id="left"><div class="panel-top"><div><p class="panel-kicker">Контрольный метод</p><h2>Без штрафа за риск</h2></div><select class="policy-select" aria-label="Метод слева"></select></div><div class="metrics"></div><div class="topology"></div><div class="queue-list"></div></article>
+      <article class="panel highlight" id="right"><div class="panel-top"><div><p class="panel-kicker">Исследуемый метод</p><h2>С учётом общих рисков</h2></div><select class="policy-select" aria-label="Метод справа"></select></div><div class="metrics"></div><div class="topology"></div><div class="queue-list"></div></article>
+    </div>
+    <div class="legend"><span><i class="legend-green"></i>Доступен</span><span><i class="legend-red"></i>Отказ общего сегмента</span><span><i class="legend-orange"></i>Передача</span><span>Очередь = сохранённые копии + зарезервированное место</span></div>
+  </section>
+
+  <section class="analysis-grid">
+    <article class="panel chart-panel"><div class="panel-top"><div><p class="panel-kicker">События, а не заданный процент</p><h2>Накопленная доставка</h2></div><span class="tag">СООБЩЕНИЯ</span></div><div id="chart" aria-label="График числа доставленных сообщений"></div><p class="small-note">Затемнённая область: отключение общего сегмента. Кривая строится только до текущего момента воспроизведения.</p></article>
+    <article class="panel inspector"><div class="panel-top"><div><p class="panel-kicker">Почему выбран этот узел</p><h2>Разбор решения</h2></div><span id="decisionTime" class="tag">—</span></div><div id="decision"><p class="empty">Начните воспроизведение или перейдите по шкале времени.</p></div></article>
+  </section>
+
+  <section class="panel log-panel"><div class="panel-top"><div><p class="panel-kicker">Единый журнал воспроизведения</p><h2>Что происходит в сети</h2></div><label class="checkbox"><input type="checkbox" id="verbose">Все события</label></div><div class="event-log" id="log" role="log" aria-label="Журнал событий"></div></section>
+
+  <details class="panel final-results"><summary>Итог всего прогона и экспорт результатов<span>05 стратегий / JSON / CSV</span></summary><p class="small-note">Здесь показан конец всего опыта, независимо от положения ползунка. Метод «всем» использует отдельный, больший бюджет. Ни один метод не обязан выигрывать во всех сценариях.</p><div class="table-wrap"><table id="summary"><thead><tr><th>Метод</th><th>Доставлено</th><th>Доля</th><th>Просрочено</th><th>Отклонено</th><th>Ожидают</th><th>Данные + ACK</th><th>p95, с</th></tr></thead><tbody></tbody></table></div><div class="exports"><button class="button" id="exportJSON">Скачать журнал JSON</button><button class="button" id="exportCSV">Скачать итоги CSV</button><label class="button file-button">Открыть сохранённый опыт<input id="import" type="file" accept=".json,application/json"></label></div></details>
+
+  <footer><span>RELAY LAB / ИССЛЕДОВАТЕЛЬСКИЙ ПРОТОТИП</span><p>Доля доставки включает отклонения при перегрузке. p95 рассчитывается по доставленным сообщениям.<br>Одна демонстрация не доказывает преимущество алгоритма: сохраняйте конфигурацию и сравнивайте серию прогонов.</p></footer>
+</main>
+</body>
+</html>

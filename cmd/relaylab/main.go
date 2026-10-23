@@ -35,9 +35,18 @@ func number(v float64) string {
 
 func run(args []string, out io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: relaylab exact|experiment [-config configs/paper.json] (see README)")
+		return fmt.Errorf("usage: relaylab serve|timeline|offline|exact|experiment (see README)")
 	}
 	command := args[0]
+	if command == "serve" {
+		return serve(args[1:], out)
+	}
+	if command == "timeline" {
+		return timeline(args[1:], out)
+	}
+	if command == "offline" {
+		return offline(args[1:], out)
+	}
 	if command != "exact" && command != "experiment" {
 		return fmt.Errorf("unknown command %q", command)
 	}

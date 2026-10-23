@@ -43,9 +43,24 @@ type Options struct {
 }
 
 type Decision struct {
-	ID    string
-	Score float64
-	Risk  float64
+	ID    string  `json:"id"`
+	Score float64 `json:"score"`
+	Risk  float64 `json:"risk"`
+}
+
+// Assessment explains a candidate's current score to callers and the demo UI.
+type Assessment struct {
+	ID    string  `json:"id"`
+	Base  float64 `json:"base"`
+	Risk  float64 `json:"risk"`
+	Score float64 `json:"score"`
+}
+
+// Assess uses observed information only. Inputs must already be validated.
+func Assess(c Candidate, existing []Candidate, opts Options) Assessment {
+	r := risk(c, existing, opts.UnknownPenalty)
+	b := baseScore(c)
+	return Assessment{ID: c.ID, Base: b, Risk: r, Score: b / (1 + opts.Lambda*r)}
 }
 
 func unit(x float64) bool        { return !math.IsNaN(x) && !math.IsInf(x, 0) && x >= 0 && x <= 1 }
@@ -125,6 +140,13 @@ func risk(c Candidate, chosen []Candidate, unknown float64) float64 {
 }
 
 func Select(candidates []Candidate, opts Options, policy Policy, rng *rand.Rand) ([]Decision, error) {
+	return SelectWithExisting(candidates, nil, opts, policy, rng)
+}
+
+// SelectWithExisting continues an irrevocable recipient ledger. Existing
+// recipients count against the same lifetime budget and participate in risk
+// scoring even if their transfer failed or they are currently disconnected.
+func SelectWithExisting(candidates, existing []Candidate, opts Options, policy Policy, rng *rand.Rand) ([]Decision, error) {
 	pool, err := Eligible(candidates, opts)
 	if err != nil {
 		return nil, err
@@ -134,7 +156,22 @@ func Select(candidates []Candidate, opts Options, policy Policy, rng *rand.Rand)
 	default:
 		return nil, fmt.Errorf("unknown policy %q", policy)
 	}
-	limit := opts.Budget
+	if _, err := Eligible(existing, opts); err != nil {
+		return nil, err
+	}
+	seen := make(map[string]bool)
+	for _, c := range existing {
+		seen[c.ID] = true
+	}
+	for _, c := range pool {
+		if seen[c.ID] {
+			return nil, fmt.Errorf("existing recipient %q is still a candidate", c.ID)
+		}
+	}
+	if policy != All && len(existing) > opts.Budget {
+		return nil, fmt.Errorf("existing ledger exceeds budget")
+	}
+	limit := opts.Budget - len(existing)
 	if policy == All || limit > len(pool) {
 		limit = len(pool)
 	}
@@ -149,7 +186,7 @@ func Select(candidates []Candidate, opts Options, policy Policy, rng *rand.Rand)
 		}
 		return out, nil
 	}
-	var chosen []Candidate
+	chosen := append([]Candidate(nil), existing...)
 	out := make([]Decision, 0, limit)
 	for len(out) < limit {
 		best, bestScore, bestRisk := -1, -1.0, 2.0

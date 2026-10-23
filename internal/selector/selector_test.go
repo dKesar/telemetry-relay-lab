@@ -71,6 +71,26 @@ func TestUnknownAndOverlappingRisk(t *testing.T) {
 	}
 }
 
+func TestExistingLedgerAndAssessments(t *testing.T) {
+	cs, o := fixture()
+	d, err := SelectWithExisting(cs[1:], cs[:1], o, RiskAware, nil)
+	if err != nil || !reflect.DeepEqual(ids(d), []string{"C"}) {
+		t.Fatalf("existing risk ignored: %v %v", d, err)
+	}
+	if _, err := SelectWithExisting(cs, cs[:1], o, RiskAware, nil); err == nil {
+		t.Fatal("existing recipient was eligible twice")
+	}
+	o.Budget = 0
+	if _, err := SelectWithExisting(cs[1:], cs[:1], o, RiskAware, nil); err == nil {
+		t.Fatal("overspent ledger accepted")
+	}
+	o.Budget = 2
+	a := Assess(cs[1], cs[:1], o)
+	if a.Risk != 1 || math.Abs(a.Score-.34) > 1e-12 {
+		t.Fatal("wrong score explanation")
+	}
+}
+
 func TestEligibilityBoundaries(t *testing.T) {
 	cs, opts := fixture()
 	cs[0].FreeBytes = 511

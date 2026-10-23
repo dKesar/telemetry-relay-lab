@@ -1,4 +1,13 @@
-.PHONY: test vet exact experiment bench
+.PHONY: test vet exact experiment bench demo timeline offline
+
+demo:
+	go run ./cmd/relaylab serve
+
+timeline:
+	go run ./cmd/relaylab timeline -runs 30 -seed 42 -out results/timeline-42
+
+offline:
+	go run ./cmd/relaylab offline -out results/demo.html
 
 test:
 	go test -race -cover ./...
