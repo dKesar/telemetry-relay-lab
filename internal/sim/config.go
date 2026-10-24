@@ -7,7 +7,7 @@ import (
 	"math"
 )
 
-const Version = "timeline-v2"
+const Version = "timeline-v3"
 const TickMS int64 = 100
 const FrameMS int64 = 200
 const AckBytes int64 = 64
@@ -23,16 +23,33 @@ type Domain struct {
 }
 
 type Relay struct {
-	ID                string   `json:"id"`
-	Availability      float64  `json:"availability"`
-	ReportedGroups    []string `json:"reported_groups"`
-	GroupsKnown       bool     `json:"groups_known"`
-	PhysicalGroups    []string `json:"physical_groups"`
-	CapacityBytes     int64    `json:"capacity_bytes"`
-	LocalBytesPerSec  int64    `json:"local_bytes_per_second"`
-	UplinkBytesPerSec int64    `json:"uplink_bytes_per_second"`
-	LatencyMS         int64    `json:"latency_ms"`
-	DropProbability   float64  `json:"drop_probability"`
+	ID                string      `json:"id"`
+	Availability      float64     `json:"availability"`
+	ReportedGroups    []string    `json:"reported_groups"`
+	GroupsKnown       bool        `json:"groups_known"`
+	PhysicalGroups    []string    `json:"physical_groups"`
+	CapacityBytes     int64       `json:"capacity_bytes"`
+	LocalBytesPerSec  int64       `json:"local_bytes_per_second"`
+	UplinkBytesPerSec int64       `json:"uplink_bytes_per_second"`
+	LatencyMS         int64       `json:"latency_ms"`
+	DropProbability   float64     `json:"drop_probability"`
+	Phases            []LinkPhase `json:"phases,omitempty"`
+}
+
+// Phases are physical test inputs. They are never passed to adaptive.Choose.
+type LinkPhase struct {
+	Start           int64   `json:"start_ms"`
+	End             int64   `json:"end_ms"`
+	DropProbability float64 `json:"drop_probability"`
+}
+
+func (r Relay) LossAt(at int64) float64 {
+	for _, p := range r.Phases {
+		if at >= p.Start && at < p.End {
+			return p.DropProbability
+		}
+	}
+	return r.DropProbability
 }
 
 type Config struct {
@@ -95,6 +112,13 @@ func (c Config) Validate() error {
 			return fmt.Errorf("invalid relay %q", r.ID)
 		}
 		ids[r.ID] = true
+		last := int64(0)
+		for _, p := range r.Phases {
+			if p.Start < last || p.Start < 0 || p.End <= p.Start || p.End > c.DurationMS || !probability(p.DropProbability) {
+				return fmt.Errorf("invalid link phase")
+			}
+			last = p.End
+		}
 		for _, list := range [][]string{r.ReportedGroups, r.PhysicalGroups} {
 			seen := make(map[string]bool)
 			for _, g := range list {
@@ -168,6 +192,38 @@ func Presets() []Config {
 	ack.Description = "Данные могут быть доставлены, а подтверждение потеряться. Повтор остаётся у прежнего получателя; бюджет копий не выдаётся заново."
 	ack.AckLossProbability = .65
 	out = append(out, ack)
+	changing := base()
+	changing.Name = "changing_links"
+	changing.Title = "Качество меняется"
+	changing.Description = "После 12 с каналы А и Б начинают терять 98% пакетов. Сообщённые оценки остаются прежними; новый метод учится по завершённым проверкам."
+	changing.DurationMS = 60000
+	changing.GenerateUntilMS = 45000
+	changing.CollectorOutages = []Interval{}
+	changing.Domains[0].Outages = []Interval{}
+	changing.Relays[0].Phases = []LinkPhase{{12000, 60000, .98}}
+	changing.Relays[1].Phases = []LinkPhase{{12000, 60000, .98}}
+	out = append(out, changing)
+	tight := base()
+	tight.Name = "deadline_pressure"
+	tight.Title = "Короткий срок"
+	tight.Description = "У А и Б высокая исходная оценка, но медленная отправка. Для срока в 1 с важны очередь и полный путь до сервера."
+	tight.CollectorOutages = []Interval{}
+	tight.Domains[0].Outages = []Interval{}
+	tight.TTLMS = 1000
+	tight.IntervalMS = 250
+	tight.Relays[0].UplinkBytesPerSec = 512
+	tight.Relays[1].UplinkBytesPerSec = 512
+	out = append(out, tight)
+	unknown := changing
+	unknown.Relays = append([]Relay(nil), changing.Relays...)
+	unknown.Name = "unknown_topology"
+	unknown.Title = "Нет надёжных меток"
+	unknown.Description = "Группы риска неизвестны. Качество каналов меняется, решения уточняются по совместной истории проверок."
+	for i := range unknown.Relays {
+		unknown.Relays[i].GroupsKnown = false
+		unknown.Relays[i].ReportedGroups = []string{}
+	}
+	out = append(out, unknown)
 	return out
 }
 

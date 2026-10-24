@@ -95,7 +95,7 @@ func Handler() http.Handler {
 		if name == "" {
 			name = "index.html"
 		}
-		types := map[string]string{"index.html": "text/html; charset=utf-8", "app.js": "text/javascript; charset=utf-8", "style.css": "text/css; charset=utf-8"}
+		types := map[string]string{"index.html": "text/html; charset=utf-8", "app.js": "text/javascript; charset=utf-8", "style.css": "text/css; charset=utf-8", "research.html": "text/html; charset=utf-8", "evidence-data.zip": "application/zip"}
 		contentType, ok := types[name]
 		if !ok {
 			http.NotFound(w, r)
@@ -105,6 +105,9 @@ func Handler() http.Handler {
 		if err != nil {
 			http.NotFound(w, r)
 			return
+		}
+		if name == "research.html" {
+			w.Header().Set("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'")
 		}
 		w.Header().Set("Content-Type", contentType)
 		w.Write(data)

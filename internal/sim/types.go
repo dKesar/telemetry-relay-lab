@@ -1,6 +1,22 @@
 package sim
 
-import "github.com/dKesar/telemetry-relay-lab/internal/selector"
+import (
+	"github.com/dKesar/telemetry-relay-lab/internal/adaptive"
+	"github.com/dKesar/telemetry-relay-lab/internal/selector"
+)
+
+const Adaptive selector.Policy = "adaptive"
+const AdaptiveIndependent selector.Policy = "adaptive_independent"
+const AdaptiveNoDeadline selector.Policy = "adaptive_no_deadline"
+const AdaptiveStatic selector.Policy = "adaptive_static"
+
+func Policies() []selector.Policy { return append(selector.Policies(), Adaptive) }
+func ResearchPolicies() []selector.Policy {
+	return append(Policies(), AdaptiveIndependent, AdaptiveNoDeadline, AdaptiveStatic)
+}
+func adaptivePolicy(p selector.Policy) bool {
+	return p == Adaptive || p == AdaptiveIndependent || p == AdaptiveNoDeadline || p == AdaptiveStatic
+}
 
 type Stats struct {
 	Generated       int     `json:"generated"`
@@ -20,6 +36,10 @@ type Stats struct {
 	MaxCopies       int     `json:"max_copies"`
 	P50MS           int64   `json:"p50_ms"`
 	P95MS           int64   `json:"p95_ms"`
+	ProbeBytes      int64   `json:"probe_bytes"`
+	Assigned        int     `json:"assigned"`
+	Decisions       int     `json:"decisions"`
+	Evaluated       int     `json:"evaluated_sets"`
 }
 
 type Node struct {
@@ -41,10 +61,12 @@ type Flight struct {
 }
 
 type Frame struct {
-	Time    int64    `json:"time_ms"`
-	Stats   Stats    `json:"stats"`
-	Nodes   []Node   `json:"nodes"`
-	Flights []Flight `json:"flights"`
+	Time    int64             `json:"time_ms"`
+	Stats   Stats             `json:"stats"`
+	Nodes   []Node            `json:"nodes"`
+	Flights []Flight          `json:"flights"`
+	Health  []adaptive.Health `json:"health,omitempty"`
+	Pairs   []adaptive.Pair   `json:"pairs,omitempty"`
 }
 
 type Event struct {
@@ -55,6 +77,7 @@ type Event struct {
 	Detail     string                `json:"detail"`
 	Candidates []selector.Assessment `json:"candidates,omitempty"`
 	Chosen     []selector.Decision   `json:"chosen,omitempty"`
+	Plan       *adaptive.Plan        `json:"plan,omitempty"`
 }
 
 type Message struct {

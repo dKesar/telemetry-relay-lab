@@ -1,0 +1,3483 @@
+{
+  "protocol": "paired-jitter-v1",
+  "model": "timeline-v3",
+  "algorithm": "adaptive-set-v1",
+  "base_seed": 1000,
+  "runs": 30,
+  "validated_runs": 3510,
+  "summary": [
+    {
+      "case": "shared_failure",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9147222222222221,
+        "ci95_low": 0.912222222222222,
+        "ci95_high": 0.9172222222222224
+      },
+      "bytes": {
+        "mean": 222700.8,
+        "ci95_low": 221307.73333333325,
+        "ci95_high": 224117.33333333328
+      },
+      "mean_run_p95_ms": 7143.366666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.495
+    },
+    {
+      "case": "shared_failure",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7372222222222222,
+        "ci95_low": 0.7352777777777779,
+        "ci95_high": 0.7391666666666667
+      },
+      "bytes": {
+        "mean": 205141.33333333328,
+        "ci95_low": 203918.93333333335,
+        "ci95_high": 206353.06666666668
+      },
+      "mean_run_p95_ms": 990.0666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.495
+    },
+    {
+      "case": "shared_failure",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9997222222222221,
+        "ci95_low": 0.9991666666666664,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 230274.13333333336,
+        "ci95_low": 228885.3333333333,
+        "ci95_high": 231739.73333333334
+      },
+      "mean_run_p95_ms": 7606.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4955555555555555
+    },
+    {
+      "case": "shared_failure",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9997222222222221,
+        "ci95_low": 0.9991666666666664,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 230274.13333333336,
+        "ci95_low": 228885.3333333333,
+        "ci95_high": 231739.73333333334
+      },
+      "mean_run_p95_ms": 7606.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4955555555555555
+    },
+    {
+      "case": "shared_failure",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9997222222222221,
+        "ci95_low": 0.9991666666666664,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 281855.99999999994,
+        "ci95_low": 280149.3333333333,
+        "ci95_high": 283673.6
+      },
+      "mean_run_p95_ms": 7606.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9911111111111108
+    },
+    {
+      "case": "shared_failure",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9997222222222221,
+        "ci95_low": 0.9991666666666664,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 209049.59999999998,
+        "ci95_low": 205446.40000000002,
+        "ci95_high": 212938.66666666672
+      },
+      "mean_run_p95_ms": 7603.033333333334,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.3463888888888889
+    },
+    {
+      "case": "shared_failure",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7402777777777779,
+        "ci95_low": 0.7375000000000002,
+        "ci95_high": 0.7433333333333333
+      },
+      "bytes": {
+        "mean": 175601.0666666667,
+        "ci95_low": 174231.46666666667,
+        "ci95_high": 177058.1333333334
+      },
+      "mean_run_p95_ms": 1116.6666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.2905555555555557
+    },
+    {
+      "case": "shared_failure",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9997222222222221,
+        "ci95_low": 0.9991666666666664,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 206410.66666666666,
+        "ci95_low": 202948.26666666666,
+        "ci95_high": 209941.33333333334
+      },
+      "mean_run_p95_ms": 7606.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.3358333333333332
+    },
+    {
+      "case": "shared_failure",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9997222222222221,
+        "ci95_low": 0.9991666666666664,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 230841.60000000003,
+        "ci95_low": 229422.93333333338,
+        "ci95_high": 232288
+      },
+      "mean_run_p95_ms": 7603.033333333334,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4955555555555555
+    },
+    {
+      "case": "independent",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 324014.9333333334,
+        "ci95_low": 322638.93333333335,
+        "ci95_high": 325435.73333333334
+      },
+      "mean_run_p95_ms": 7025.533333333334,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "independent",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 321610.6666666667,
+        "ci95_low": 320671.99999999994,
+        "ci95_high": 322495.99999999994
+      },
+      "mean_run_p95_ms": 7242.933333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "independent",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 322632.5333333333,
+        "ci95_low": 321209.6,
+        "ci95_high": 323991.4666666667
+      },
+      "mean_run_p95_ms": 7244.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "independent",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 322632.5333333333,
+        "ci95_low": 321209.6,
+        "ci95_high": 323991.4666666667
+      },
+      "mean_run_p95_ms": 7244.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "independent",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 471882.6666666667,
+        "ci95_low": 470116.26666666666,
+        "ci95_high": 473642.6666666666
+      },
+      "mean_run_p95_ms": 7242.2,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 3.0000000000000013
+    },
+    {
+      "case": "independent",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 322344.5333333334,
+        "ci95_low": 320878.9333333334,
+        "ci95_high": 323752.5333333333
+      },
+      "mean_run_p95_ms": 7244.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "independent",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 321597.86666666664,
+        "ci95_low": 320475.7333333333,
+        "ci95_high": 322702.93333333347
+      },
+      "mean_run_p95_ms": 7242.933333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "independent",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 307921.06666666665,
+        "ci95_low": 302291.2,
+        "ci95_high": 313572.2666666666
+      },
+      "mean_run_p95_ms": 7244.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9030555555555555
+    },
+    {
+      "case": "independent",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 322410.6666666667,
+        "ci95_low": 321041.0666666667,
+        "ci95_high": 323756.8000000001
+      },
+      "mean_run_p95_ms": 7244.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6405555555555555,
+        "ci95_low": 0.633888888888889,
+        "ci95_high": 0.6472222222222223
+      },
+      "bytes": {
+        "mean": 237747.20000000004,
+        "ci95_low": 236857.59999999998,
+        "ci95_high": 238634.66666666666
+      },
+      "mean_run_p95_ms": 11763.466666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8627777777777768
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6377777777777777,
+        "ci95_low": 0.6313888888888888,
+        "ci95_high": 0.6441666666666668
+      },
+      "bytes": {
+        "mean": 241350.4,
+        "ci95_low": 240563.19999999998,
+        "ci95_high": 242112.00000000003
+      },
+      "mean_run_p95_ms": 11551.3,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8627777777777768
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.638611111111111,
+        "ci95_low": 0.6319444444444443,
+        "ci95_high": 0.6452777777777778
+      },
+      "bytes": {
+        "mean": 232027.7333333334,
+        "ci95_low": 231438.93333333338,
+        "ci95_high": 232601.6
+      },
+      "mean_run_p95_ms": 11818.4,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8627777777777768
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6377777777777777,
+        "ci95_low": 0.6313888888888888,
+        "ci95_high": 0.6441666666666668
+      },
+      "bytes": {
+        "mean": 241350.4,
+        "ci95_low": 240563.19999999998,
+        "ci95_high": 242112.00000000003
+      },
+      "mean_run_p95_ms": 11551.3,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8627777777777768
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6369444444444444,
+        "ci95_low": 0.6308333333333332,
+        "ci95_high": 0.6430555555555555
+      },
+      "bytes": {
+        "mean": 338897.0666666666,
+        "ci95_low": 337943.4666666666,
+        "ci95_high": 339938.1333333333
+      },
+      "mean_run_p95_ms": 11817.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 2.7255555555555557
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6374999999999998,
+        "ci95_low": 0.6311111111111112,
+        "ci95_high": 0.6438888888888888
+      },
+      "bytes": {
+        "mean": 254423.46666666667,
+        "ci95_low": 251428.26666666663,
+        "ci95_high": 256859.7333333333
+      },
+      "mean_run_p95_ms": 11434.466666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8413888888888887
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6374999999999998,
+        "ci95_low": 0.6311111111111112,
+        "ci95_high": 0.6438888888888888
+      },
+      "bytes": {
+        "mean": 257668.2666666667,
+        "ci95_low": 256665.59999999998,
+        "ci95_high": 258722.13333333336
+      },
+      "mean_run_p95_ms": 11431.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.858888888888888
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6377777777777777,
+        "ci95_low": 0.6313888888888888,
+        "ci95_high": 0.6441666666666668
+      },
+      "bytes": {
+        "mean": 232279.4666666667,
+        "ci95_low": 231411.20000000004,
+        "ci95_high": 233162.66666666672
+      },
+      "mean_run_p95_ms": 11551.3,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8627777777777768
+    },
+    {
+      "case": "weak_alternative",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6383333333333332,
+        "ci95_low": 0.6319444444444445,
+        "ci95_high": 0.6444444444444446
+      },
+      "bytes": {
+        "mean": 257621.33333333334,
+        "ci95_low": 256561.06666666665,
+        "ci95_high": 258762.66666666672
+      },
+      "mean_run_p95_ms": 11461.8,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8594444444444433
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9130555555555553,
+        "ci95_low": 0.9102777777777777,
+        "ci95_high": 0.9158333333333334
+      },
+      "bytes": {
+        "mean": 222271.99999999997,
+        "ci95_low": 220825.59999999995,
+        "ci95_high": 223793.0666666666
+      },
+      "mean_run_p95_ms": 7114.433333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4930555555555558
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7366666666666667,
+        "ci95_low": 0.7347222222222224,
+        "ci95_high": 0.7386111111111112
+      },
+      "bytes": {
+        "mean": 204968.5333333333,
+        "ci95_low": 203628.80000000002,
+        "ci95_high": 206289.06666666668
+      },
+      "mean_run_p95_ms": 946.9666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4930555555555558
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7366666666666667,
+        "ci95_low": 0.7347222222222224,
+        "ci95_high": 0.7386111111111112
+      },
+      "bytes": {
+        "mean": 204868.26666666666,
+        "ci95_low": 203626.6666666667,
+        "ci95_high": 206122.66666666672
+      },
+      "mean_run_p95_ms": 950.6333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4930555555555558
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7366666666666667,
+        "ci95_low": 0.7347222222222224,
+        "ci95_high": 0.7386111111111112
+      },
+      "bytes": {
+        "mean": 204868.26666666666,
+        "ci95_low": 203626.6666666667,
+        "ci95_high": 206122.66666666672
+      },
+      "mean_run_p95_ms": 950.6333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4930555555555558
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9997222222222221,
+        "ci95_low": 0.9991666666666664,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 282487.4666666667,
+        "ci95_low": 280362.6666666667,
+        "ci95_high": 284827.7333333333
+      },
+      "mean_run_p95_ms": 7615.633333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9927777777777775
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7366666666666667,
+        "ci95_low": 0.7347222222222224,
+        "ci95_high": 0.7386111111111112
+      },
+      "bytes": {
+        "mean": 182500.2666666667,
+        "ci95_low": 179165.8666666667,
+        "ci95_high": 185977.60000000003
+      },
+      "mean_run_p95_ms": 1096.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.3372222222222225
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7386111111111112,
+        "ci95_low": 0.7361111111111112,
+        "ci95_high": 0.741388888888889
+      },
+      "bytes": {
+        "mean": 175438.93333333332,
+        "ci95_low": 174062.93333333338,
+        "ci95_high": 176919.46666666667
+      },
+      "mean_run_p95_ms": 1113.4,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.2891666666666666
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7366666666666667,
+        "ci95_low": 0.7347222222222224,
+        "ci95_high": 0.7386111111111112
+      },
+      "bytes": {
+        "mean": 180684.80000000002,
+        "ci95_low": 177265.06666666668,
+        "ci95_high": 184204.8
+      },
+      "mean_run_p95_ms": 1098.4333333333334,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.326111111111111
+    },
+    {
+      "case": "wrong_labels",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7366666666666667,
+        "ci95_low": 0.7347222222222224,
+        "ci95_high": 0.7386111111111112
+      },
+      "bytes": {
+        "mean": 204889.60000000003,
+        "ci95_low": 203630.93333333335,
+        "ci95_high": 206167.46666666665
+      },
+      "mean_run_p95_ms": 950.6333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.4930555555555558
+    },
+    {
+      "case": "overload",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.13838888888888892,
+        "ci95_low": 0.13655555555555554,
+        "ci95_high": 0.14005555555555557
+      },
+      "bytes": {
+        "mean": 189736.53333333333,
+        "ci95_low": 188908.79999999996,
+        "ci95_high": 190675.19999999998
+      },
+      "mean_run_p95_ms": 10362,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.23677777777777784
+    },
+    {
+      "case": "overload",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.13872222222222225,
+        "ci95_low": 0.13666666666666666,
+        "ci95_high": 0.14077777777777775
+      },
+      "bytes": {
+        "mean": 190133.33333333334,
+        "ci95_low": 188938.66666666672,
+        "ci95_high": 191357.8666666667
+      },
+      "mean_run_p95_ms": 10112,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.23594444444444443
+    },
+    {
+      "case": "overload",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.13872222222222225,
+        "ci95_low": 0.13705555555555554,
+        "ci95_high": 0.1403333333333333
+      },
+      "bytes": {
+        "mean": 191234.13333333336,
+        "ci95_low": 190278.39999999994,
+        "ci95_high": 192168.53333333338
+      },
+      "mean_run_p95_ms": 10440,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.2379444444444445
+    },
+    {
+      "case": "overload",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.13872222222222225,
+        "ci95_low": 0.13705555555555554,
+        "ci95_high": 0.1403333333333333
+      },
+      "bytes": {
+        "mean": 191234.13333333336,
+        "ci95_low": 190278.39999999994,
+        "ci95_high": 192168.53333333338
+      },
+      "mean_run_p95_ms": 10440,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.2379444444444445
+    },
+    {
+      "case": "overload",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.12477777777777777,
+        "ci95_low": 0.12305555555555556,
+        "ci95_high": 0.12649999999999997
+      },
+      "bytes": {
+        "mean": 214218.66666666666,
+        "ci95_low": 212932.26666666663,
+        "ci95_high": 215524.2666666666
+      },
+      "mean_run_p95_ms": 10841.666666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.2738888888888889
+    },
+    {
+      "case": "overload",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.16416666666666668,
+        "ci95_low": 0.1621666666666667,
+        "ci95_high": 0.16611111111111113
+      },
+      "bytes": {
+        "mean": 185702.4,
+        "ci95_low": 184403.20000000004,
+        "ci95_high": 187080.53333333333
+      },
+      "mean_run_p95_ms": 10419,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.23038888888888892
+    },
+    {
+      "case": "overload",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.16361111111111115,
+        "ci95_low": 0.1612777777777778,
+        "ci95_high": 0.16605555555555557
+      },
+      "bytes": {
+        "mean": 194570.66666666666,
+        "ci95_low": 192804.2666666667,
+        "ci95_high": 196292.26666666663
+      },
+      "mean_run_p95_ms": 9266,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.24194444444444452
+    },
+    {
+      "case": "overload",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.16344444444444442,
+        "ci95_low": 0.16144444444444447,
+        "ci95_high": 0.16555555555555557
+      },
+      "bytes": {
+        "mean": 185913.60000000003,
+        "ci95_low": 184578.13333333333,
+        "ci95_high": 187268.26666666666
+      },
+      "mean_run_p95_ms": 10366,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.23116666666666666
+    },
+    {
+      "case": "overload",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.1378888888888889,
+        "ci95_low": 0.1363888888888889,
+        "ci95_high": 0.13944444444444443
+      },
+      "bytes": {
+        "mean": 189627.73333333337,
+        "ci95_low": 188388.26666666666,
+        "ci95_high": 190862.93333333332
+      },
+      "mean_run_p95_ms": 10590,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.23655555555555557
+    },
+    {
+      "case": "lost_ack",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9133333333333333,
+        "ci95_low": 0.9105555555555557,
+        "ci95_high": 0.9158333333333334
+      },
+      "bytes": {
+        "mean": 560661.3333333334,
+        "ci95_low": 555099.7333333334,
+        "ci95_high": 565527.4666666666
+      },
+      "mean_run_p95_ms": 8871.533333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8444444444444448
+    },
+    {
+      "case": "lost_ack",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7366666666666667,
+        "ci95_low": 0.7341666666666667,
+        "ci95_high": 0.7391666666666667
+      },
+      "bytes": {
+        "mean": 531193.6,
+        "ci95_low": 525393.0666666665,
+        "ci95_high": 536601.6
+      },
+      "mean_run_p95_ms": 7118.166666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8130555555555556
+    },
+    {
+      "case": "lost_ack",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9991666666666665,
+        "ci95_low": 0.9980555555555553,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 555656.5333333332,
+        "ci95_low": 551121.0666666668,
+        "ci95_high": 559974.4
+      },
+      "mean_run_p95_ms": 10247.4,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8544444444444443
+    },
+    {
+      "case": "lost_ack",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9991666666666665,
+        "ci95_low": 0.9980555555555553,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 555656.5333333332,
+        "ci95_low": 551121.0666666668,
+        "ci95_high": 559974.4
+      },
+      "mean_run_p95_ms": 10247.4,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8544444444444443
+    },
+    {
+      "case": "lost_ack",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9991666666666665,
+        "ci95_low": 0.9980555555555553,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 728305.0666666667,
+        "ci95_low": 723918.9333333335,
+        "ci95_high": 732337.0666666667
+      },
+      "mean_run_p95_ms": 10265.733333333334,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 2.708055555555555
+    },
+    {
+      "case": "lost_ack",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9988888888888887,
+        "ci95_low": 0.9974999999999997,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 556264.5333333332,
+        "ci95_low": 551180.8,
+        "ci95_high": 561233.0666666665
+      },
+      "mean_run_p95_ms": 10147.466666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8261111111111112
+    },
+    {
+      "case": "lost_ack",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7388888888888889,
+        "ci95_low": 0.7358333333333332,
+        "ci95_high": 0.7422222222222221
+      },
+      "bytes": {
+        "mean": 524168.5333333332,
+        "ci95_low": 518941.86666666646,
+        "ci95_high": 529529.6
+      },
+      "mean_run_p95_ms": 7043.7,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.7797222222222224
+    },
+    {
+      "case": "lost_ack",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9974999999999998,
+        "ci95_low": 0.9952777777777777,
+        "ci95_high": 0.9991666666666665
+      },
+      "bytes": {
+        "mean": 480855.4666666666,
+        "ci95_low": 464678.39999999997,
+        "ci95_high": 496166.3999999999
+      },
+      "mean_run_p95_ms": 10544.033333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.6444444444444444
+    },
+    {
+      "case": "lost_ack",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9991666666666665,
+        "ci95_low": 0.9980555555555553,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 562963.2,
+        "ci95_low": 558022.3999999999,
+        "ci95_high": 567552
+      },
+      "mean_run_p95_ms": 10120.466666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8519444444444446
+    },
+    {
+      "case": "changing_links",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7946296296296295,
+        "ci95_low": 0.7868518518518517,
+        "ci95_high": 0.8029629629629629
+      },
+      "bytes": {
+        "mean": 743136,
+        "ci95_low": 741408,
+        "ci95_high": 745198.9333333332
+      },
+      "mean_run_p95_ms": 2293.633333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "changing_links",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.36203703703703694,
+        "ci95_low": 0.34925925925925916,
+        "ci95_high": 0.37537037037037035
+      },
+      "bytes": {
+        "mean": 713341.8666666666,
+        "ci95_low": 712614.3999999999,
+        "ci95_high": 714022.3999999999
+      },
+      "mean_run_p95_ms": 10521.533333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "changing_links",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 654060.7999999999,
+        "ci95_low": 652445.8666666665,
+        "ci95_high": 655716.2666666666
+      },
+      "mean_run_p95_ms": 905.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "changing_links",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 654060.7999999999,
+        "ci95_low": 652445.8666666665,
+        "ci95_high": 655716.2666666666
+      },
+      "mean_run_p95_ms": 905.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "changing_links",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 939242.6666666667,
+        "ci95_low": 937683.2,
+        "ci95_high": 940817.0666666664
+      },
+      "mean_run_p95_ms": 975.6,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 3.0000000000000013
+    },
+    {
+      "case": "changing_links",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 522227.2,
+        "ci95_low": 510606.9333333334,
+        "ci95_high": 534442.6666666666
+      },
+      "mean_run_p95_ms": 906.2333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.6555555555555554
+    },
+    {
+      "case": "changing_links",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9864814814814816,
+        "ci95_low": 0.9807407407407409,
+        "ci95_high": 0.9922222222222221
+      },
+      "bytes": {
+        "mean": 486670.93333333335,
+        "ci95_low": 476885.3333333334,
+        "ci95_high": 496095.9999999999
+      },
+      "mean_run_p95_ms": 914.6333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.576111111111111
+    },
+    {
+      "case": "changing_links",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 504966.4,
+        "ci95_low": 491003.73333333334,
+        "ci95_high": 519453.8666666668
+      },
+      "mean_run_p95_ms": 905.0666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.6518518518518521
+    },
+    {
+      "case": "changing_links",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 704633.6,
+        "ci95_low": 702455.4666666668,
+        "ci95_high": 706604.7999999999
+      },
+      "mean_run_p95_ms": 906.8666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.6508333333333334,
+        "ci95_low": 0.643611111111111,
+        "ci95_high": 0.6575
+      },
+      "bytes": {
+        "mean": 214850.13333333333,
+        "ci95_low": 214212.2666666667,
+        "ci95_high": 215528.53333333333
+      },
+      "mean_run_p95_ms": 896.1,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "bytes": {
+        "mean": 161079.4666666667,
+        "ci95_low": 160473.59999999998,
+        "ci95_high": 161706.66666666663
+      },
+      "mean_run_p95_ms": 0,
+      "runs_with_delivery": 0,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9783333333333332,
+        "ci95_low": 0.9730555555555553,
+        "ci95_high": 0.9827777777777775
+      },
+      "bytes": {
+        "mean": 241629.8666666667,
+        "ci95_low": 240919.46666666667,
+        "ci95_high": 242286.93333333335
+      },
+      "mean_run_p95_ms": 914.0666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9783333333333332,
+        "ci95_low": 0.9730555555555553,
+        "ci95_high": 0.9827777777777775
+      },
+      "bytes": {
+        "mean": 241629.8666666667,
+        "ci95_low": 240919.46666666667,
+        "ci95_high": 242286.93333333335
+      },
+      "mean_run_p95_ms": 914.0666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9430555555555556,
+        "ci95_low": 0.9363888888888889,
+        "ci95_high": 0.9494444444444449
+      },
+      "bytes": {
+        "mean": 307366.3999999999,
+        "ci95_low": 306783.99999999994,
+        "ci95_high": 307957.3333333332
+      },
+      "mean_run_p95_ms": 883.8666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 3.0000000000000013
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9783333333333332,
+        "ci95_low": 0.9730555555555551,
+        "ci95_high": 0.9830555555555552
+      },
+      "bytes": {
+        "mean": 172189.86666666664,
+        "ci95_low": 171528.53333333333,
+        "ci95_high": 172836.26666666663
+      },
+      "mean_run_p95_ms": 914.1,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.9999999999999999
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9783333333333332,
+        "ci95_low": 0.9730555555555551,
+        "ci95_high": 0.9830555555555552
+      },
+      "bytes": {
+        "mean": 172189.86666666664,
+        "ci95_low": 171528.53333333333,
+        "ci95_high": 172836.26666666663
+      },
+      "mean_run_p95_ms": 914.1,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.9999999999999999
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7936111111111109,
+        "ci95_low": 0.7180555555555554,
+        "ci95_high": 0.8633333333333332
+      },
+      "bytes": {
+        "mean": 212930.13333333333,
+        "ci95_low": 201661.86666666667,
+        "ci95_high": 223581.86666666667
+      },
+      "mean_run_p95_ms": 912.1666666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8136111111111108
+    },
+    {
+      "case": "deadline_pressure",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9783333333333332,
+        "ci95_low": 0.9730555555555551,
+        "ci95_high": 0.9830555555555552
+      },
+      "bytes": {
+        "mean": 172189.86666666664,
+        "ci95_low": 171528.53333333333,
+        "ci95_high": 172836.26666666663
+      },
+      "mean_run_p95_ms": 914.1,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.9999999999999999
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.790925925925926,
+        "ci95_low": 0.7825925925925927,
+        "ci95_high": 0.7992592592592592
+      },
+      "bytes": {
+        "mean": 743500.7999999999,
+        "ci95_low": 741555.2000000001,
+        "ci95_high": 745828.2666666668
+      },
+      "mean_run_p95_ms": 1880,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.3516666666666666,
+        "ci95_low": 0.33629629629629626,
+        "ci95_high": 0.36740740740740735
+      },
+      "bytes": {
+        "mean": 712433.0666666667,
+        "ci95_low": 711714.1333333334,
+        "ci95_high": 713085.8666666668
+      },
+      "mean_run_p95_ms": 9742.466666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.3516666666666666,
+        "ci95_low": 0.33629629629629626,
+        "ci95_high": 0.36740740740740735
+      },
+      "bytes": {
+        "mean": 712433.0666666667,
+        "ci95_low": 711714.1333333334,
+        "ci95_high": 713085.8666666668
+      },
+      "mean_run_p95_ms": 9742.466666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.3516666666666666,
+        "ci95_low": 0.33629629629629626,
+        "ci95_high": 0.36740740740740735
+      },
+      "bytes": {
+        "mean": 712433.0666666667,
+        "ci95_low": 711714.1333333334,
+        "ci95_high": 713085.8666666668
+      },
+      "mean_run_p95_ms": 9742.466666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9999999999999999,
+        "ci95_low": 0.9999999999999999,
+        "ci95_high": 0.9999999999999999
+      },
+      "bytes": {
+        "mean": 939231.9999999998,
+        "ci95_low": 937875.2000000001,
+        "ci95_high": 940738.1333333332
+      },
+      "mean_run_p95_ms": 978.0333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 3.0000000000000013
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9933333333333334,
+        "ci95_low": 0.990925925925926,
+        "ci95_high": 0.9955555555555555
+      },
+      "bytes": {
+        "mean": 501250.13333333336,
+        "ci95_low": 486504.5333333334,
+        "ci95_high": 515347.1999999999
+      },
+      "mean_run_p95_ms": 918.7666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.6059259259259258
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9855555555555556,
+        "ci95_low": 0.9792592592592592,
+        "ci95_high": 0.9918518518518518
+      },
+      "bytes": {
+        "mean": 487347.2,
+        "ci95_low": 477339.73333333334,
+        "ci95_high": 497122.13333333336
+      },
+      "mean_run_p95_ms": 921.0333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.5759259259259262
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.9955555555555555,
+        "ci95_low": 0.9924074074074075,
+        "ci95_high": 0.998148148148148
+      },
+      "bytes": {
+        "mean": 481525.3333333333,
+        "ci95_low": 463647.9999999999,
+        "ci95_high": 500631.4666666666
+      },
+      "mean_run_p95_ms": 923.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.5770370370370368
+    },
+    {
+      "case": "unknown_topology",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.4809259259259259,
+        "ci95_low": 0.4681481481481482,
+        "ci95_high": 0.4937037037037038
+      },
+      "bytes": {
+        "mean": 728533.3333333334,
+        "ci95_low": 727633.0666666667,
+        "ci95_high": 729440
+      },
+      "mean_run_p95_ms": 8641.266666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7913888888888891,
+        "ci95_low": 0.7908333333333335,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 287699.2,
+        "ci95_low": 286664.5333333333,
+        "ci95_high": 288727.4666666667
+      },
+      "mean_run_p95_ms": 1130.2333333333333,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.791666666666667,
+        "ci95_low": 0.791666666666667,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 286481.06666666665,
+        "ci95_low": 285427.19999999995,
+        "ci95_high": 287566.9333333334
+      },
+      "mean_run_p95_ms": 1274.7666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7911111111111113,
+        "ci95_low": 0.790277777777778,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 286679.4666666666,
+        "ci95_low": 285806.9333333333,
+        "ci95_high": 287526.39999999997
+      },
+      "mean_run_p95_ms": 1269.9,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7911111111111113,
+        "ci95_low": 0.790277777777778,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 286679.4666666666,
+        "ci95_low": 285806.9333333333,
+        "ci95_high": 287526.39999999997
+      },
+      "mean_run_p95_ms": 1269.9,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.791666666666667,
+        "ci95_low": 0.791666666666667,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 417346.13333333336,
+        "ci95_low": 416008.53333333327,
+        "ci95_high": 418653.86666666664
+      },
+      "mean_run_p95_ms": 1266.6666666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 3.0000000000000013
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7908333333333335,
+        "ci95_low": 0.7894444444444447,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 286792.5333333334,
+        "ci95_low": 285836.80000000005,
+        "ci95_high": 287718.4000000001
+      },
+      "mean_run_p95_ms": 1169.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7913888888888891,
+        "ci95_low": 0.7908333333333335,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 287037.8666666667,
+        "ci95_low": 286028.8,
+        "ci95_high": 288100.2666666666
+      },
+      "mean_run_p95_ms": 1204.1,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7911111111111113,
+        "ci95_low": 0.790277777777778,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 275020.8,
+        "ci95_low": 270374.39999999997,
+        "ci95_high": 279682.1333333333
+      },
+      "mean_run_p95_ms": 1278.8,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9225
+    },
+    {
+      "case": "ttl_2000ms",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.7908333333333335,
+        "ci95_low": 0.7894444444444447,
+        "ci95_high": 0.791666666666667
+      },
+      "bytes": {
+        "mean": 286449.0666666667,
+        "ci95_low": 285533.8666666667,
+        "ci95_high": 287334.39999999997
+      },
+      "mean_run_p95_ms": 1169.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8580555555555557,
+        "ci95_low": 0.8575000000000002,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 299500.8,
+        "ci95_low": 298500.2666666666,
+        "ci95_high": 300473.6000000001
+      },
+      "mean_run_p95_ms": 2935.766666666667,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8583333333333335,
+        "ci95_low": 0.8583333333333335,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 297632.00000000006,
+        "ci95_low": 296567.4666666667,
+        "ci95_high": 298707.20000000007
+      },
+      "mean_run_p95_ms": 3124,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8577777777777779,
+        "ci95_low": 0.8569444444444445,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 298545.0666666667,
+        "ci95_low": 297523.2,
+        "ci95_high": 299596.8
+      },
+      "mean_run_p95_ms": 3129.2,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8577777777777779,
+        "ci95_low": 0.8569444444444445,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 298545.0666666667,
+        "ci95_low": 297523.2,
+        "ci95_high": 299596.8
+      },
+      "mean_run_p95_ms": 3129.2,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8583333333333335,
+        "ci95_low": 0.8583333333333335,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 435264,
+        "ci95_low": 433902.93333333335,
+        "ci95_high": 436657.06666666665
+      },
+      "mean_run_p95_ms": 3124,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 3.0000000000000013
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8577777777777779,
+        "ci95_low": 0.8569444444444445,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 298227.20000000007,
+        "ci95_low": 297248,
+        "ci95_high": 299266.13333333336
+      },
+      "mean_run_p95_ms": 2784.4,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8583333333333335,
+        "ci95_low": 0.8583333333333335,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 297657.60000000003,
+        "ci95_low": 296573.8666666667,
+        "ci95_high": 298741.3333333334
+      },
+      "mean_run_p95_ms": 3124,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8577777777777779,
+        "ci95_low": 0.8569444444444445,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 283029.3333333333,
+        "ci95_low": 277627.73333333334,
+        "ci95_high": 288352
+      },
+      "mean_run_p95_ms": 3129.2,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.8975
+    },
+    {
+      "case": "ttl_4000ms",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.8577777777777779,
+        "ci95_low": 0.8569444444444445,
+        "ci95_high": 0.8583333333333335
+      },
+      "bytes": {
+        "mean": 298348.79999999993,
+        "ci95_low": 297410.1333333333,
+        "ci95_high": 299334.4
+      },
+      "mean_run_p95_ms": 2784.4,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 1.9999999999999998
+    },
+    {
+      "case": "load_8hz",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.34555555555555567,
+        "ci95_low": 0.3415277777777778,
+        "ci95_high": 0.3494444444444445
+      },
+      "bytes": {
+        "mean": 188454.40000000002,
+        "ci95_low": 187622.40000000002,
+        "ci95_high": 189282.13333333333
+      },
+      "mean_run_p95_ms": 9792,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5865277777777776
+    },
+    {
+      "case": "load_8hz",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.34763888888888883,
+        "ci95_low": 0.3436111111111112,
+        "ci95_high": 0.3515277777777779
+      },
+      "bytes": {
+        "mean": 188904.53333333335,
+        "ci95_low": 187741.86666666667,
+        "ci95_high": 189947.73333333337
+      },
+      "mean_run_p95_ms": 9365.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5895833333333331
+    },
+    {
+      "case": "load_8hz",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.3443055555555556,
+        "ci95_low": 0.3397222222222222,
+        "ci95_high": 0.3486111111111111
+      },
+      "bytes": {
+        "mean": 188151.46666666665,
+        "ci95_low": 186715.73333333328,
+        "ci95_high": 189619.19999999998
+      },
+      "mean_run_p95_ms": 9972.666666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5865277777777778
+    },
+    {
+      "case": "load_8hz",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.3443055555555556,
+        "ci95_low": 0.3397222222222222,
+        "ci95_high": 0.3486111111111111
+      },
+      "bytes": {
+        "mean": 188151.46666666665,
+        "ci95_low": 186715.73333333328,
+        "ci95_high": 189619.19999999998
+      },
+      "mean_run_p95_ms": 9972.666666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5865277777777778
+    },
+    {
+      "case": "load_8hz",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.3104166666666666,
+        "ci95_low": 0.30680555555555544,
+        "ci95_high": 0.31388888888888883
+      },
+      "bytes": {
+        "mean": 210056.5333333333,
+        "ci95_low": 208940.80000000005,
+        "ci95_high": 211163.73333333325
+      },
+      "mean_run_p95_ms": 11160.166666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.6645833333333334
+    },
+    {
+      "case": "load_8hz",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.40763888888888883,
+        "ci95_low": 0.40263888888888894,
+        "ci95_high": 0.41222222222222216
+      },
+      "bytes": {
+        "mean": 184095.99999999997,
+        "ci95_low": 182764.80000000002,
+        "ci95_high": 185440
+      },
+      "mean_run_p95_ms": 10065.166666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5716666666666667
+    },
+    {
+      "case": "load_8hz",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.39972222222222226,
+        "ci95_low": 0.3943055555555556,
+        "ci95_high": 0.405
+      },
+      "bytes": {
+        "mean": 192113.0666666667,
+        "ci95_low": 190717.86666666667,
+        "ci95_high": 193448.53333333333
+      },
+      "mean_run_p95_ms": 8530.5,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5997222222222224
+    },
+    {
+      "case": "load_8hz",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.40527777777777774,
+        "ci95_low": 0.39972222222222215,
+        "ci95_high": 0.4105555555555555
+      },
+      "bytes": {
+        "mean": 183364.26666666663,
+        "ci95_low": 181794.13333333336,
+        "ci95_high": 184836.2666666667
+      },
+      "mean_run_p95_ms": 10352.833333333334,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5690277777777779
+    },
+    {
+      "case": "load_8hz",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.3450000000000001,
+        "ci95_low": 0.34111111111111125,
+        "ci95_high": 0.3484722222222223
+      },
+      "bytes": {
+        "mean": 188635.73333333334,
+        "ci95_low": 187515.73333333328,
+        "ci95_high": 189696.00000000006
+      },
+      "mean_run_p95_ms": 10145.333333333334,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.5877777777777778
+    },
+    {
+      "case": "load_12hz",
+      "policy": "random",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.23176795580110499,
+        "ci95_low": 0.22836095764272563,
+        "ci95_high": 0.23480662983425415
+      },
+      "bytes": {
+        "mean": 191221.33333333334,
+        "ci95_low": 189996.8,
+        "ci95_high": 192409.59999999995
+      },
+      "mean_run_p95_ms": 10128.2,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.39493554327808467
+    },
+    {
+      "case": "load_12hz",
+      "policy": "availability",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.231767955801105,
+        "ci95_low": 0.22909760589318592,
+        "ci95_high": 0.23443830570902388
+      },
+      "bytes": {
+        "mean": 191340.80000000002,
+        "ci95_low": 189913.60000000003,
+        "ci95_high": 192755.2
+      },
+      "mean_run_p95_ms": 9766.7,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.3945672191528544
+    },
+    {
+      "case": "load_12hz",
+      "policy": "diverse",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.23121546961325967,
+        "ci95_low": 0.22845303867403313,
+        "ci95_high": 0.23388581952117868
+      },
+      "bytes": {
+        "mean": 191778.1333333333,
+        "ci95_low": 190542.93333333335,
+        "ci95_high": 193000.53333333335
+      },
+      "mean_run_p95_ms": 10211.6,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.3947513812154696
+    },
+    {
+      "case": "load_12hz",
+      "policy": "risk_aware",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.23121546961325967,
+        "ci95_low": 0.22845303867403313,
+        "ci95_high": 0.23388581952117868
+      },
+      "bytes": {
+        "mean": 191778.1333333333,
+        "ci95_low": 190542.93333333335,
+        "ci95_high": 193000.53333333335
+      },
+      "mean_run_p95_ms": 10211.6,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.3947513812154696
+    },
+    {
+      "case": "load_12hz",
+      "policy": "all",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.2099447513812154,
+        "ci95_low": 0.2075506445672191,
+        "ci95_high": 0.21224677716390422
+      },
+      "bytes": {
+        "mean": 215048.5333333333,
+        "ci95_low": 213700.26666666663,
+        "ci95_high": 216435.2
+      },
+      "mean_run_p95_ms": 11044,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.4536832412523021
+    },
+    {
+      "case": "load_12hz",
+      "policy": "adaptive",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.27467771639042354,
+        "ci95_low": 0.27246777163904234,
+        "ci95_high": 0.27688766114180474
+      },
+      "bytes": {
+        "mean": 186284.8,
+        "ci95_low": 185113.60000000003,
+        "ci95_high": 187394.13333333333
+      },
+      "mean_run_p95_ms": 10325.766666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.38370165745856366
+    },
+    {
+      "case": "load_12hz",
+      "policy": "adaptive_independent",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.27412523020257823,
+        "ci95_low": 0.27127071823204413,
+        "ci95_high": 0.27697974217311233
+      },
+      "bytes": {
+        "mean": 195281.0666666667,
+        "ci95_low": 194009.59999999998,
+        "ci95_high": 196490.6666666667
+      },
+      "mean_run_p95_ms": 8871.6,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.4031307550644568
+    },
+    {
+      "case": "load_12hz",
+      "policy": "adaptive_no_deadline",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.2760589318600368,
+        "ci95_low": 0.2731123388581952,
+        "ci95_high": 0.27872928176795586
+      },
+      "bytes": {
+        "mean": 187057.0666666667,
+        "ci95_low": 185907.19999999998,
+        "ci95_high": 188251.73333333334
+      },
+      "mean_run_p95_ms": 10424.166666666666,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.386279926335175
+    },
+    {
+      "case": "load_12hz",
+      "policy": "adaptive_static",
+      "runs": 30,
+      "delivery": {
+        "mean": 0.23057090239410677,
+        "ci95_low": 0.22799263351749538,
+        "ci95_high": 0.23305709023941068
+      },
+      "bytes": {
+        "mean": 190933.33333333337,
+        "ci95_low": 189768.53333333333,
+        "ci95_high": 192042.66666666663
+      },
+      "mean_run_p95_ms": 10429.7,
+      "runs_with_delivery": 30,
+      "mean_copies_per_generated": 0.39327808471454884
+    }
+  ],
+  "comparisons": [
+    {
+      "case": "shared_failure",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.2624999999999999,
+        "ci95_low": 0.2605555555555555,
+        "ci95_high": 0.2644444444444444
+      },
+      "relative_byte_saving": {
+        "mean": -0.01904838158412388,
+        "ci95_low": -0.03727876548557592,
+        "ci95_high": -0.002608356247878511
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "shared_failure",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.09217747887834903,
+        "ci95_low": 0.07635170253083443,
+        "ci95_high": 0.10655177173660882
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "shared_failure",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.09217747887834903,
+        "ci95_low": 0.07635170253083443,
+        "ci95_high": 0.10655177173660882
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "shared_failure",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.25832984967331685,
+        "ci95_low": 0.24556194350767263,
+        "ci95_high": 0.26978546682276894
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "shared_failure",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0.2594444444444444,
+        "ci95_low": 0.25638888888888883,
+        "ci95_high": 0.26222222222222225
+      },
+      "relative_byte_saving": {
+        "mean": -0.1905115903442952,
+        "ci95_low": -0.2111198937290013,
+        "ci95_high": -0.1724130178519418
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "shared_failure",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.012757906593175402,
+        "ci95_low": -0.0179205269304069,
+        "ci95_high": -0.008443601209099193
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "shared_failure",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.09446587550302947,
+        "ci95_low": 0.07918332020249175,
+        "ci95_high": 0.10847070135779557
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "independent",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.002276889693929314,
+        "ci95_low": -0.005432525828787242,
+        "ci95_high": 0.0010504904973678505
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "independent",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.0008712759375710142,
+        "ci95_low": -0.0017000512936341014,
+        "ci95_high": 0.003466027286525402
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "independent",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.0008712759375710142,
+        "ci95_low": -0.0017000512936341014,
+        "ci95_high": 0.003466027286525402
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "independent",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.3168948014954156,
+        "ci95_low": 0.3151226266789659,
+        "ci95_high": 0.318678319374749
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "independent",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.002322635319538405,
+        "ci95_low": -0.005260536005498694,
+        "ci95_high": 0.0005854070741702632
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "independent",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.04963451075231912,
+        "ci95_low": -0.06915639773291504,
+        "ci95_high": -0.03055734825040972
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "independent",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.0001915907043316419,
+        "ci95_low": -0.0017805470497394744,
+        "ci95_high": 0.002402559999498074
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "weak_alternative",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": -0.0002777777777777768,
+        "ci95_low": -0.0013888888888888913,
+        "ci95_high": 0.0008333333333333415
+      },
+      "relative_byte_saving": {
+        "mean": -0.054135272275926474,
+        "ci95_low": -0.06330016421127471,
+        "ci95_high": -0.042401948563121045
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "weak_alternative",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": -0.0011111111111111,
+        "ci95_low": -0.008888888888888878,
+        "ci95_high": 0.006666666666666682
+      },
+      "relative_byte_saving": {
+        "mean": -0.0964904947096554,
+        "ci95_low": -0.10661181675170663,
+        "ci95_high": -0.08403990093997321
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "weak_alternative",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": -0.0002777777777777768,
+        "ci95_low": -0.0013888888888888913,
+        "ci95_high": 0.0008333333333333415
+      },
+      "relative_byte_saving": {
+        "mean": -0.054135272275926474,
+        "ci95_low": -0.06330016421127471,
+        "ci95_high": -0.042401948563121045
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "weak_alternative",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0.0005555555555555574,
+        "ci95_low": -0.006666666666666672,
+        "ci95_high": 0.007777777777777781
+      },
+      "relative_byte_saving": {
+        "mean": 0.24929957406738806,
+        "ci95_low": 0.24272868535270242,
+        "ci95_high": 0.2576558256885746
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "weak_alternative",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.012622495500558956,
+        "ci95_low": 0.004309817930722704,
+        "ci95_high": 0.02336296592779521
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "weak_alternative",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": -0.0002777777777777768,
+        "ci95_low": -0.0013888888888888913,
+        "ci95_high": 0.0008333333333333415
+      },
+      "relative_byte_saving": {
+        "mean": -0.09526327913710873,
+        "ci95_low": -0.10437403990942837,
+        "ci95_high": -0.0839826674248804
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "weak_alternative",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": -0.0008333333333333305,
+        "ci95_low": -0.0022222222222222144,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.012432734780037799,
+        "ci95_low": 0.004240327636383123,
+        "ci95_high": 0.023265866785326696
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "wrong_labels",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.10958295482368868,
+        "ci95_low": 0.09303676605884441,
+        "ci95_high": 0.12492783200250439
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "wrong_labels",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.10918523838340641,
+        "ci95_low": 0.09272372811920356,
+        "ci95_high": 0.1243577445090515
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "wrong_labels",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.10918523838340641,
+        "ci95_low": 0.09272372811920356,
+        "ci95_high": 0.1243577445090515
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "wrong_labels",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": -0.26305555555555554,
+        "ci95_low": -0.26499999999999996,
+        "ci95_high": -0.261111111111111
+      },
+      "relative_byte_saving": {
+        "mean": 0.35392635547933987,
+        "ci95_low": 0.34255368534716535,
+        "ci95_high": 0.36450557899763625
+      },
+      "interpretation": "Доставка хуже контрольного метода в данной модели"
+    },
+    {
+      "case": "wrong_labels",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": -0.0019444444444444485,
+        "ci95_low": -0.0033333333333333366,
+        "ci95_high": -0.0008333333333333341
+      },
+      "relative_byte_saving": {
+        "mean": -0.04032214245899354,
+        "ci95_low": -0.059190582433449476,
+        "ci95_high": -0.022314209336751736
+      },
+      "interpretation": "Доставка хуже контрольного метода в данной модели"
+    },
+    {
+      "case": "wrong_labels",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.010261261366078456,
+        "ci95_low": -0.017004957056029623,
+        "ci95_high": -0.004941245647687017
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "wrong_labels",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.10926975545832802,
+        "ci95_low": 0.09281717026924075,
+        "ci95_high": 0.12447698140294308
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "overload",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.02544444444444444,
+        "ci95_low": 0.02361111111111111,
+        "ci95_high": 0.02738888888888889
+      },
+      "relative_byte_saving": {
+        "mean": 0.02318389131631447,
+        "ci95_low": 0.01634441492263682,
+        "ci95_high": 0.02974730223426683
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "overload",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0.025444444444444443,
+        "ci95_low": 0.023722222222222217,
+        "ci95_high": 0.027222222222222217
+      },
+      "relative_byte_saving": {
+        "mean": 0.028839799874954882,
+        "ci95_low": 0.021664094682761564,
+        "ci95_high": 0.035830864778479056
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "overload",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0.025444444444444443,
+        "ci95_low": 0.023722222222222217,
+        "ci95_high": 0.027222222222222217
+      },
+      "relative_byte_saving": {
+        "mean": 0.028839799874954882,
+        "ci95_low": 0.021664094682761564,
+        "ci95_high": 0.035830864778479056
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "overload",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0.03938888888888888,
+        "ci95_low": 0.037777777777777785,
+        "ci95_high": 0.040944444444444436
+      },
+      "relative_byte_saving": {
+        "mean": 0.13298833182422096,
+        "ci95_low": 0.12600127556453544,
+        "ci95_high": 0.13944447470208762
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "overload",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0.0005555555555555563,
+        "ci95_low": -0.0011666666666666665,
+        "ci95_high": 0.002444444444444448
+      },
+      "relative_byte_saving": {
+        "mean": 0.04519566334416431,
+        "ci95_low": 0.03637283770454044,
+        "ci95_high": 0.053100065540227365
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "overload",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0.0007222222222222212,
+        "ci95_low": -0.0006111111111111116,
+        "ci95_high": 0.002111111111111106
+      },
+      "relative_byte_saving": {
+        "mean": 0.0010491394893864376,
+        "ci95_low": -0.0038514341873413334,
+        "ci95_high": 0.006320398860503513
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "overload",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0.026277777777777785,
+        "ci95_low": 0.025166666666666664,
+        "ci95_high": 0.027333333333333338
+      },
+      "relative_byte_saving": {
+        "mean": 0.020523877509034488,
+        "ci95_low": 0.013062899741247197,
+        "ci95_high": 0.028329780310972514
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "lost_ack",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.2622222222222222,
+        "ci95_low": 0.25944444444444437,
+        "ci95_high": 0.26499999999999996
+      },
+      "relative_byte_saving": {
+        "mean": -0.04790231120069124,
+        "ci95_low": -0.06014882899400402,
+        "ci95_high": -0.03591633082415504
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "lost_ack",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": -0.0002777777777777805,
+        "ci95_low": -0.001111111111111122,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0011581225337174983,
+        "ci95_low": -0.007348541728176631,
+        "ci95_high": 0.0051632771780066675
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "lost_ack",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": -0.0002777777777777805,
+        "ci95_low": -0.001111111111111122,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0011581225337174983,
+        "ci95_low": -0.007348541728176631,
+        "ci95_high": 0.0051632771780066675
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "lost_ack",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": -0.0002777777777777805,
+        "ci95_low": -0.001111111111111122,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.23625788649161503,
+        "ci95_low": 0.23176634057072473,
+        "ci95_high": 0.24074061419362922
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "lost_ack",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0.25999999999999995,
+        "ci95_low": 0.2563888888888889,
+        "ci95_high": 0.2633333333333333
+      },
+      "relative_byte_saving": {
+        "mean": -0.061639163647050924,
+        "ci95_low": -0.07102626210292151,
+        "ci95_high": -0.05235845939409559
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "lost_ack",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0.0013888888888888913,
+        "ci95_low": 0.0002777777777777805,
+        "ci95_high": 0.002500000000000013
+      },
+      "relative_byte_saving": {
+        "mean": -0.1664073140523656,
+        "ci95_low": -0.2080217314639762,
+        "ci95_high": -0.1271145009678104
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "lost_ack",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": -0.0002777777777777805,
+        "ci95_low": -0.001111111111111122,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.011792190503588897,
+        "ci95_low": 0.006504852443436039,
+        "ci95_high": 0.017622922997210765
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "changing_links",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.6379629629629628,
+        "ci95_low": 0.6244444444444445,
+        "ci95_high": 0.6505555555555556
+      },
+      "relative_byte_saving": {
+        "mean": 0.2678805737579774,
+        "ci95_low": 0.25073150755687035,
+        "ci95_high": 0.2837755476861882
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "changing_links",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.20154154873383415,
+        "ci95_low": 0.18332440358864008,
+        "ci95_high": 0.2189181477614219
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "changing_links",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.20154154873383415,
+        "ci95_low": 0.18332440358864008,
+        "ci95_high": 0.2189181477614219
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "changing_links",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.4439986874920591,
+        "ci95_low": 0.4312757861893225,
+        "ci95_high": 0.455853718870651
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "changing_links",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0.013518518518518518,
+        "ci95_low": 0.007777777777777785,
+        "ci95_high": 0.01925925925925925
+      },
+      "relative_byte_saving": {
+        "mean": -0.07444841027095783,
+        "ci95_low": -0.09893569608750255,
+        "ci95_high": -0.052192338280187246
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "changing_links",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.03609877763685611,
+        "ci95_low": -0.049453283711505,
+        "ci95_high": -0.02287567102919566
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "changing_links",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.25881744031815385,
+        "ci95_low": 0.24161594387428842,
+        "ci95_high": 0.2752456933140074
+      },
+      "interpretation": "В серии доставка совпала; модельных байтов меньше"
+    },
+    {
+      "case": "deadline_pressure",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.9783333333333332,
+        "ci95_low": 0.9730555555555551,
+        "ci95_high": 0.9830555555555552
+      },
+      "relative_byte_saving": {
+        "mean": -0.069065827883199,
+        "ci95_low": -0.07425409066134193,
+        "ci95_high": -0.06404627027462666
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "deadline_pressure",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": -0.0008333333333333305,
+        "ci95_high": 0.0008333333333333305
+      },
+      "relative_byte_saving": {
+        "mean": 0.2873954510250759,
+        "ci95_low": 0.28651560071409693,
+        "ci95_high": 0.2882871191162618
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "deadline_pressure",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": -0.0008333333333333305,
+        "ci95_high": 0.0008333333333333305
+      },
+      "relative_byte_saving": {
+        "mean": 0.2873954510250759,
+        "ci95_low": 0.28651560071409693,
+        "ci95_high": 0.2882871191162618
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "deadline_pressure",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0.03527777777777777,
+        "ci95_low": 0.030277777777777758,
+        "ci95_high": 0.04
+      },
+      "relative_byte_saving": {
+        "mean": 0.4397980047579783,
+        "ci95_low": 0.43834456648381476,
+        "ci95_high": 0.4413010882710883
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "deadline_pressure",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "deadline_pressure",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0.1847222222222222,
+        "ci95_low": 0.11611111111111111,
+        "ci95_high": 0.2572222222222222
+      },
+      "relative_byte_saving": {
+        "mean": 0.17203223323030992,
+        "ci95_low": 0.12342453525210799,
+        "ci95_high": 0.2171900537925572
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "deadline_pressure",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "unknown_topology",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.6416666666666669,
+        "ci95_low": 0.6248148148148149,
+        "ci95_high": 0.657222222222222
+      },
+      "relative_byte_saving": {
+        "mean": 0.29644316971281165,
+        "ci95_low": 0.2767514419632879,
+        "ci95_high": 0.3170583025642408
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "unknown_topology",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0.6416666666666669,
+        "ci95_low": 0.6248148148148149,
+        "ci95_high": 0.657222222222222
+      },
+      "relative_byte_saving": {
+        "mean": 0.29644316971281165,
+        "ci95_low": 0.2767514419632879,
+        "ci95_high": 0.3170583025642408
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "unknown_topology",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0.6416666666666669,
+        "ci95_low": 0.6248148148148149,
+        "ci95_high": 0.657222222222222
+      },
+      "relative_byte_saving": {
+        "mean": 0.29644316971281165,
+        "ci95_low": 0.2767514419632879,
+        "ci95_high": 0.3170583025642408
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "unknown_topology",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": -0.006666666666666658,
+        "ci95_low": -0.009074074074074073,
+        "ci95_high": -0.00444444444444443
+      },
+      "relative_byte_saving": {
+        "mean": 0.4663652784772097,
+        "ci95_low": 0.4516113187140746,
+        "ci95_high": 0.4818899928271385
+      },
+      "interpretation": "Доставка хуже контрольного метода в данной модели"
+    },
+    {
+      "case": "unknown_topology",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0.007777777777777783,
+        "ci95_low": 0.0018518518518518532,
+        "ci95_high": 0.013703703703703706
+      },
+      "relative_byte_saving": {
+        "mean": -0.027739293501828667,
+        "ci95_low": -0.044850212985236254,
+        "ci95_high": -0.010869213349627408
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "unknown_topology",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": -0.0022222222222222144,
+        "ci95_low": -0.004259259259259252,
+        "ci95_high": -0.0003703703703703616
+      },
+      "relative_byte_saving": {
+        "mean": -0.04466570013745269,
+        "ci95_low": -0.06105039345804753,
+        "ci95_high": -0.027474680557984934
+      },
+      "interpretation": "Доставка хуже контрольного метода в данной модели"
+    },
+    {
+      "case": "unknown_topology",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0.5124074074074074,
+        "ci95_low": 0.49888888888888894,
+        "ci95_high": 0.5253703703703704
+      },
+      "relative_byte_saving": {
+        "mean": 0.3119936895741217,
+        "ci95_low": 0.29248174477914823,
+        "ci95_high": 0.3321041439707232
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "ttl_2000ms",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": -0.0008333333333333305,
+        "ci95_low": -0.0022222222222222144,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0011395752373823324,
+        "ci95_low": -0.004414557566745769,
+        "ci95_high": 0.0020961384776857347
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_2000ms",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": -0.0002777777777777768,
+        "ci95_low": -0.0008333333333333305,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0004024717233591473,
+        "ci95_low": -0.0023490354794607152,
+        "ci95_high": 0.001369832448982344
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_2000ms",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": -0.0002777777777777768,
+        "ci95_low": -0.0008333333333333305,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0004024717233591473,
+        "ci95_low": -0.0023490354794607152,
+        "ci95_high": 0.001369832448982344
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_2000ms",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": -0.0008333333333333305,
+        "ci95_low": -0.0022222222222222144,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.31280898954414416,
+        "ci95_low": 0.31123205292564005,
+        "ci95_high": 0.314306195021612
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_2000ms",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": -0.0005555555555555536,
+        "ci95_low": -0.001388888888888884,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.0008206269170802766,
+        "ci95_low": -0.001708335093586899,
+        "ci95_high": 0.003283148367432223
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_2000ms",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": -0.0002777777777777768,
+        "ci95_low": -0.0008333333333333305,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.04538449038528714,
+        "ci95_low": -0.0644377762564897,
+        "ci95_high": -0.026771229551930165
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_2000ms",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0012079419784113566,
+        "ci95_low": -0.003050520211656812,
+        "ci95_high": 0.0003587671810604714
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_4000ms",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": -0.0005555555555555536,
+        "ci95_low": -0.001388888888888884,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0020516932002853207,
+        "ci95_low": -0.005352034506039863,
+        "ci95_high": 0.001408802150322893
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_4000ms",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.0010396553539407012,
+        "ci95_low": -0.0013289684540398103,
+        "ci95_high": 0.003545690846241767
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_4000ms",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.0010396553539407012,
+        "ci95_low": -0.0013289684540398103,
+        "ci95_high": 0.003545690846241767
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_4000ms",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": -0.0005555555555555536,
+        "ci95_low": -0.001388888888888884,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.3148176983105889,
+        "ci95_low": 0.31275664097432543,
+        "ci95_high": 0.3168078234740936
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_4000ms",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": -0.0005555555555555536,
+        "ci95_low": -0.001388888888888884,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.0019657001405365524,
+        "ci95_low": -0.00544897516305883,
+        "ci95_high": 0.00164162700160947
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_4000ms",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": -0.056606218936688435,
+        "ci95_low": -0.07570804785463177,
+        "ci95_high": -0.037037955977537576
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "ttl_4000ms",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0,
+        "ci95_low": 0,
+        "ci95_high": 0
+      },
+      "relative_byte_saving": {
+        "mean": 0.00038628553921191307,
+        "ci95_low": -0.0019288965973335444,
+        "ci95_high": 0.0029912264891832374
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "load_8hz",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.06,
+        "ci95_low": 0.05583333333333333,
+        "ci95_high": 0.06430555555555556
+      },
+      "relative_byte_saving": {
+        "mean": 0.025299893822227745,
+        "ci95_low": 0.01786598563345699,
+        "ci95_high": 0.032668067214962924
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_8hz",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0.06333333333333332,
+        "ci95_low": 0.060138888888888895,
+        "ci95_high": 0.0663888888888889
+      },
+      "relative_byte_saving": {
+        "mean": 0.021353102281055327,
+        "ci95_low": 0.014302624797258663,
+        "ci95_high": 0.028082922430337942
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_8hz",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0.06333333333333332,
+        "ci95_low": 0.060138888888888895,
+        "ci95_high": 0.0663888888888889
+      },
+      "relative_byte_saving": {
+        "mean": 0.021353102281055327,
+        "ci95_low": 0.014302624797258663,
+        "ci95_high": 0.028082922430337942
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_8hz",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0.09722222222222222,
+        "ci95_low": 0.09374999999999999,
+        "ci95_high": 0.10097222222222224
+      },
+      "relative_byte_saving": {
+        "mean": 0.12342585124788825,
+        "ci95_low": 0.11608375355685892,
+        "ci95_high": 0.1306455978288885
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_8hz",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0.00791666666666667,
+        "ci95_low": 0.0037500000000000033,
+        "ci95_high": 0.012361111111111106
+      },
+      "relative_byte_saving": {
+        "mean": 0.041621330073052985,
+        "ci95_low": 0.03598731457552533,
+        "ci95_high": 0.04697031575489492
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_8hz",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": 0.0023611111111111103,
+        "ci95_low": 0.0001388888888888847,
+        "ci95_high": 0.0045833333333333325
+      },
+      "relative_byte_saving": {
+        "mean": -0.004123478025002396,
+        "ci95_low": -0.008525310679955106,
+        "ci95_high": 0.00031737223524839597
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_8hz",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0.06263888888888888,
+        "ci95_low": 0.05958333333333334,
+        "ci95_high": 0.06541666666666666
+      },
+      "relative_byte_saving": {
+        "mean": 0.02397833130800548,
+        "ci95_low": 0.01764585743083861,
+        "ci95_high": 0.03034955055177592
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_12hz",
+      "baseline": "availability",
+      "delivery_delta": {
+        "mean": 0.042909760589318606,
+        "ci95_low": 0.04051565377532229,
+        "ci95_high": 0.04530386740331493
+      },
+      "relative_byte_saving": {
+        "mean": 0.026212919023851863,
+        "ci95_low": 0.019674597703857655,
+        "ci95_high": 0.0326849849735465
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_12hz",
+      "baseline": "diverse",
+      "delivery_delta": {
+        "mean": 0.04346224677716391,
+        "ci95_low": 0.041252302025782686,
+        "ci95_high": 0.04548802946593005
+      },
+      "relative_byte_saving": {
+        "mean": 0.02850433870768328,
+        "ci95_low": 0.022889977493941546,
+        "ci95_high": 0.03469883563384874
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_12hz",
+      "baseline": "risk_aware",
+      "delivery_delta": {
+        "mean": 0.04346224677716391,
+        "ci95_low": 0.041252302025782686,
+        "ci95_high": 0.04548802946593005
+      },
+      "relative_byte_saving": {
+        "mean": 0.02850433870768328,
+        "ci95_low": 0.022889977493941546,
+        "ci95_high": 0.03469883563384874
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_12hz",
+      "baseline": "all",
+      "delivery_delta": {
+        "mean": 0.06473296500920812,
+        "ci95_low": 0.06243093922651935,
+        "ci95_high": 0.06712707182320442
+      },
+      "relative_byte_saving": {
+        "mean": 0.13354587087470302,
+        "ci95_low": 0.12682128424457562,
+        "ci95_high": 0.14048999806173862
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    },
+    {
+      "case": "load_12hz",
+      "baseline": "adaptive_independent",
+      "delivery_delta": {
+        "mean": 0.0005524861878453084,
+        "ci95_low": -0.0016574585635359108,
+        "ci95_high": 0.002946593001841626
+      },
+      "relative_byte_saving": {
+        "mean": 0.045894550986596123,
+        "ci95_low": 0.039400259575667854,
+        "ci95_high": 0.052091682811926235
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "load_12hz",
+      "baseline": "adaptive_no_deadline",
+      "delivery_delta": {
+        "mean": -0.0013812154696132583,
+        "ci95_low": -0.0033149171270718263,
+        "ci95_high": 0.00036832412523020355
+      },
+      "relative_byte_saving": {
+        "mean": 0.004064168078055985,
+        "ci95_low": -0.00011666905242988527,
+        "ci95_high": 0.008254000872335755
+      },
+      "interpretation": "Неопределённость: преимущество по доставке не установлено"
+    },
+    {
+      "case": "load_12hz",
+      "baseline": "adaptive_static",
+      "delivery_delta": {
+        "mean": 0.04410681399631675,
+        "ci95_low": 0.04198895027624308,
+        "ci95_high": 0.04622467771639043
+      },
+      "relative_byte_saving": {
+        "mean": 0.024177847942080773,
+        "ci95_low": 0.01774011773138603,
+        "ci95_high": 0.030978971841406567
+      },
+      "interpretation": "Положительная парная разность доставки в данной модели"
+    }
+  ]
+}

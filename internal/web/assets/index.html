@@ -10,7 +10,7 @@
 <body>
 <header class="masthead">
   <a class="brand" href="/" aria-label="Relay Lab"><span class="brand-icon">R</span> RELAY<span class="muted">/</span>LAB</a>
-  <div class="mast-meta"><span class="status-dot"></span> Локальный стенд <span class="version">GO · V0.2</span></div>
+  <div class="mast-meta"><span class="status-dot"></span> Локальный стенд <span class="version">GO · V0.3</span></div>
 </header>
 <main>
   <section class="intro">
@@ -25,7 +25,7 @@
     <form id="settings" class="settings">
       <label>Seed<input id="seed" type="number" min="0" max="2147483647" step="1" value="42"></label>
       <label>Бюджет копий K<select id="budget"><option>1</option><option selected>2</option><option>3</option></select></label>
-      <label>Штраф λ<input id="lambda" type="number" min="0" max="10" step="0.25" value="1"></label>
+      <label>λ старого метода<input id="lambda" type="number" min="0" max="10" step="0.25" value="1"></label>
       <label>Срок, с<input id="ttl" type="number" min="1" max="30" step="1" value="12"></label>
       <label>Сообщений / с<input id="rate" type="number" min="1" max="20" step="1" value="4"></label>
       <button class="button primary" type="submit" id="build">Пересчитать опыт <span>↗</span></button>
@@ -33,7 +33,15 @@
     <p class="error" id="error" role="alert" hidden></p>
   </section>
 
-  <section class="replay-section">
+  <section class="capture-controls panel" aria-label="Подготовка доказательных кадров">
+    <div class="panel-top"><div><p class="panel-kicker">Готовые кадры для выступления</p><h2>Сравнить и объяснить результат</h2></div><button id="proofMode" class="button">Режим скриншота</button></div>
+    <div class="capture-buttons"><button class="button" data-shot="shared_failure">1. Общий отказ</button><button class="button" data-shot="unknown_topology">2. Обучение</button><button class="button" data-shot="deadline_pressure">3. Срок и стоимость</button><button class="button" data-shot="overload">4. Перегрузка</button><button class="button" data-shot="weak_alternative">5. Контрпример</button></div>
+    <p class="small-note">Кнопка открывает воспроизводимый кадр с seed выбранного сценария (по умолчанию 42). Статистику по серии смотрите в <a href="/research.html" id="researchLink">полном отчёте проверки</a>. Кадр отдельного опыта иллюстрирует механизм.</p>
+  </section>
+
+  <section class="replay-section" id="captureArea">
+    <div class="capture-banner" id="captureBanner">Модель / ожидание расчёта</div>
+    <div class="proof-cards" id="proofCards"></div>
     <div class="section-caption"><span>02 / Сравнение на общей временной шкале</span><span id="phase" class="phase">Готовим модель</span></div>
     <div class="playback">
       <button class="button primary compact" id="play" disabled>▶ Воспроизвести</button>
@@ -50,6 +58,8 @@
     </div>
     <div class="legend"><span><i class="legend-green"></i>Доступен</span><span><i class="legend-red"></i>Отказ общего сегмента</span><span><i class="legend-orange"></i>Передача</span><span>Очередь = сохранённые копии + зарезервированное место</span></div>
   </section>
+
+  <section class="panel learning-panel"><div class="panel-top"><div><p class="panel-kicker">Только завершённые проверки связи</p><h2>Как уточняется выбор</h2></div><span class="tag" id="sampleCount">0 наблюдений</span></div><div id="learning"></div><p class="small-note">Условная оценка доступности при наличии хотя бы одного наблюдаемого пути. Это не измеренная вероятность доставки до срока. Общие нулевые исходы не помогают различить узлы. Окно: 24 проверки; состояние обновляется раз в секунду.</p></section>
 
   <section class="analysis-grid">
     <article class="panel chart-panel"><div class="panel-top"><div><p class="panel-kicker">События, а не заданный процент</p><h2>Накопленная доставка</h2></div><span class="tag">СООБЩЕНИЯ</span></div><div id="chart" aria-label="График числа доставленных сообщений"></div><p class="small-note">Затемнённая область: отключение общего сегмента. Кривая строится только до текущего момента воспроизведения.</p></article>

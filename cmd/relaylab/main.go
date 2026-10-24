@@ -1,4 +1,4 @@
-// relaylab runs a rational reference calculation or paired Monte Carlo snapshots.
+// relaylab runs reference calculations, time simulations and a visual research lab.
 package main
 
 import (
@@ -35,7 +35,7 @@ func number(v float64) string {
 
 func run(args []string, out io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: relaylab serve|timeline|offline|exact|experiment (see README)")
+		return fmt.Errorf("usage: relaylab serve|timeline|offline|research|exact|experiment (see README)")
 	}
 	command := args[0]
 	if command == "serve" {
@@ -46,6 +46,9 @@ func run(args []string, out io.Writer) error {
 	}
 	if command == "offline" {
 		return offline(args[1:], out)
+	}
+	if command == "research" {
+		return researchCommand(args[1:], out)
 	}
 	if command != "exact" && command != "experiment" {
 		return fmt.Errorf("unknown command %q", command)

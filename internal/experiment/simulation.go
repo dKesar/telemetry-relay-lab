@@ -110,10 +110,24 @@ type Summary struct {
 // Summarize bootstraps runs, not individual messages. The seed is independent
 // of the physical world. With fewer than two runs there is no interval.
 func Summarize(runs [][]RunResult, bootstrapSeed int64) ([]Summary, error) {
+	return SummarizePolicies(runs, bootstrapSeed, selector.Policies())
+}
+
+// SummarizePolicies keeps the same paired block bootstrap for an explicit suite.
+func SummarizePolicies(runs [][]RunResult, bootstrapSeed int64, policies []selector.Policy) ([]Summary, error) {
 	if len(runs) == 0 {
 		return nil, fmt.Errorf("no runs")
 	}
-	policies := selector.Policies()
+	unique := map[selector.Policy]bool{}
+	for _, p := range policies {
+		if unique[p] {
+			return nil, fmt.Errorf("duplicate policy")
+		}
+		unique[p] = true
+	}
+	if !unique[selector.Availability] {
+		return nil, fmt.Errorf("availability baseline required")
+	}
 	values := make(map[selector.Policy][]float64)
 	for _, run := range runs {
 		seen := make(map[selector.Policy]bool)

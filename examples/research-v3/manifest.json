@@ -1,0 +1,17 @@
+{
+  "algorithm": "adaptive-set-v1",
+  "base_seed": 1000,
+  "checked_policy_runs": 3510,
+  "copy_cost": 0.025,
+  "elapsed_seconds": 100.235089723,
+  "go": "go1.27.3",
+  "goarch": "amd64",
+  "goos": "linux",
+  "model": "timeline-v3",
+  "prior_weight": 4,
+  "protocol": "paired-jitter-v1",
+  "runs": 30,
+  "uncertainty": "percentile block bootstrap across independent seeds; 2000 resamples; intervals are per comparison, not simultaneous",
+  "window": 24,
+  "worlds_canonical_sha256": "94c838658796cb608a7feab847271a8109b9a5ec0b7c744bd075b873d3bd0597"
+}

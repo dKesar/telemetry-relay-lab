@@ -12,7 +12,7 @@ async function waitFor(fn) { for(let i=0;i<100;i++){if(fn())return;await pause(1
 
 (async()=>{
   const temp=await fs.mkdtemp(path.join(os.tmpdir(),'relay-dom-'));
-  const names=['shared_failure','independent','weak_alternative','wrong_labels','overload','lost_ack'];
+  const names=['shared_failure','independent','weak_alternative','wrong_labels','overload','lost_ack','changing_links','deadline_pressure','unknown_topology'];
   const reports={};
   for(const name of names){
     const dir=path.join(temp,name);
@@ -38,21 +38,21 @@ async function waitFor(fn) { for(let i=0;i<100;i++){if(fn())return;await pause(1
     };
     w.eval(js);
     await waitFor(()=>!d.querySelector('#play').disabled);
-    assert.equal(d.querySelectorAll('.preset').length,6);
+    assert.equal(d.querySelectorAll('.preset').length,9);
     const seek=value=>{const el=d.querySelector('#time');el.value=value;el.dispatchEvent(new w.Event('input'))};
     seek(18000);
-    const expected=reports.shared_failure.results.find(r=>r.policy==='risk_aware').frames.find(f=>f.time_ms===18000).stats.delivered;
+    const expected=reports.shared_failure.results.find(r=>r.policy==='adaptive').frames.find(f=>f.time_ms===18000).stats.delivered;
     assert.equal(parseInt(d.querySelector('#right .metric-number').textContent),expected);
     for(const name of names){
       d.querySelector(`.preset[data-name="${name}"]`).click();await waitFor(()=>!d.querySelector('#build').disabled);
       seek(45000);
       assert.equal(d.querySelector('#error').hidden,true,d.querySelector('#error').textContent);
-      assert.equal(d.querySelectorAll('#summary tbody tr').length,5);
+      assert.equal(d.querySelectorAll('#summary tbody tr').length,6);
       assert.equal(d.querySelectorAll('.topology svg').length,2);
       assert.ok(!d.querySelector('#comparison').textContent.includes('NaN'));
     }
     d.querySelector('#exportJSON').click();
-    const exported=JSON.parse(await downloads.at(-1).text());assert.equal(exported.config.name,'lost_ack');
+    const exported=JSON.parse(await downloads.at(-1).text());assert.equal(exported.config.name,'unknown_topology');
     const input=d.querySelector('#import');
     Object.defineProperty(input,'files',{configurable:true,value:[{size:100,text:async()=>JSON.stringify(reports.shared_failure)}]});
     input.dispatchEvent(new w.Event('change'));await waitFor(()=>d.querySelector('#scenarioName').textContent==='Общий отказ');
@@ -65,11 +65,16 @@ async function waitFor(fn) { for(let i=0;i<100;i++){if(fn())return;await pause(1
     failNext=true;d.querySelector('.preset[data-name="lost_ack"]').click();await waitFor(()=>!d.querySelector('#build').disabled);
     assert.equal(d.querySelector('#scenarioName').textContent,'Общий отказ');
     d.querySelector('#step').click();assert.match(d.querySelector('#clock').textContent,/^1\.0/);
+    d.querySelector('[data-shot="unknown_topology"]').click();await waitFor(()=>d.querySelector('#captureBanner').textContent.includes('unknown_topology')&&!d.querySelector('#build').disabled);
+    assert.match(d.querySelector('#clock').textContent,/^60\.0/);assert.match(d.querySelector('#proofCards').textContent,/ПРОЙДЕНА/);
+    assert.equal(d.querySelectorAll('#learning svg').length,1);
+    d.querySelector('#proofMode').click();assert.equal(d.body.classList.contains('proof-mode'),true);
+    Object.defineProperty(input,'files',{configurable:true,value:[{size:100,text:async()=>{const bad=JSON.parse(JSON.stringify(reports.shared_failure));bad.results[0].frames[0].health[0].estimate=2;return JSON.stringify(bad)}}]});input.dispatchEvent(new w.Event('change'));await waitFor(()=>!d.querySelector('#error').hidden);
     assert.deepEqual(errors,[]);
   }finally{w.close()}
-  for(const name of ['shared_failure','lost_ack']){
+  for(const name of ['shared_failure','lost_ack','suite']){
     const output=path.join(temp,name+'.html');
-    const run=spawnSync(process.env.RELAYLAB_BIN||'./relaylab',['offline','-preset',name,'-out',output],{encoding:'utf8'});
+    const run=spawnSync(process.env.RELAYLAB_BIN||'./relaylab',['offline',...(name==='suite'?['-suite']:['-preset',name]),'-out',output],{encoding:'utf8'});
     assert.equal(run.status,0,run.stderr);
     const source=await fs.readFile(output,'utf8');
     const offline=new JSDOM(source,{url:'file:///demo.html',pretendToBeVisual:true,runScripts:'outside-only',virtualConsole:console});
@@ -78,15 +83,16 @@ async function waitFor(fn) { for(let i=0;i<100;i++){if(fn())return;await pause(1
       Object.assign(ow,{Blob:global.Blob,Response:global.Response,DecompressionStream:global.DecompressionStream});
       ow.eval(od.querySelector('body > script').textContent);
       await waitFor(()=>!od.querySelector('#play').disabled);
-      assert.equal(od.querySelectorAll('.preset').length,1);
-      assert.equal(od.querySelector('#scenarioName').textContent,reports[name].config.title);
+      assert.equal(od.querySelectorAll('.preset').length,name==='suite'?5:1);
+      assert.equal(od.querySelector('#scenarioName').textContent,reports[name==='suite'?'shared_failure':name].config.title);
       assert.equal(od.querySelector('#build').disabled,true);
       assert.equal(od.querySelector('#budget').disabled,true);
       od.querySelector('#step').click();assert.match(od.querySelector('#clock').textContent,/^1\.0/);
       assert.equal(od.querySelector('#error').hidden,true,od.querySelector('#error').textContent);
+      if(name==='suite'){od.querySelector('[data-shot="unknown_topology"]').click();await waitFor(()=>od.querySelector('#captureBanner').textContent.includes('unknown_topology'));assert.match(od.querySelector('#clock').textContent,/^60\.0/)}
     }finally{ow.close()}
   }
   assert.deepEqual(errors,[]);
   await fs.rm(temp,{recursive:true,force:true});
-  process.stdout.write('DOM OK: six Go reports, counters, playback, export/import, error recovery, two self-contained offline replays\n');
+  process.stdout.write('DOM OK: nine Go reports, counters, screenshot modes, learning plot, import validation, three offline replays including five-case suite\n');
 })().catch(e=>{process.stderr.write(e.stack+'\n');process.exit(1)});

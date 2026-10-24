@@ -37,6 +37,7 @@ func offline(args []string, out io.Writer) error {
 	f := flag.NewFlagSet("offline", flag.ContinueOnError)
 	preset := f.String("preset", "shared_failure", "saved scenario")
 	seed := f.Int64("seed", 42, "seed")
+	bundle := f.Bool("suite", false, "bundle five exhibition cases in one file")
 	dest := f.String("out", "results/demo.html", "new standalone HTML file")
 	if err := f.Parse(args); err != nil {
 		return err
@@ -51,7 +52,18 @@ func offline(args []string, out io.Writer) error {
 	c.Seed = *seed
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
-	data, err := web.Offline(ctx, c)
+	var data []byte
+	if *bundle {
+		var configs []sim.Config
+		for _, name := range []string{"shared_failure", "unknown_topology", "deadline_pressure", "overload", "weak_alternative"} {
+			config, _ := sim.Preset(name)
+			config.Seed = *seed
+			configs = append(configs, config)
+		}
+		data, err = web.OfflineSuite(ctx, configs)
+	} else {
+		data, err = web.Offline(ctx, c)
+	}
 	if err != nil {
 		return err
 	}
@@ -161,7 +173,7 @@ func timeline(args []string, out io.Writer) error {
 		return err
 	}
 	if *runs >= 2 {
-		summary, err := experiment.Summarize(paired, *seed^0x6a09e667)
+		summary, err := experiment.SummarizePolicies(paired, *seed^0x6a09e667, sim.Policies())
 		if err != nil {
 			return err
 		}

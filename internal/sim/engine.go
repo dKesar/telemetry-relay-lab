@@ -4,6 +4,7 @@ import (
 	"container/heap"
 	"context"
 	"fmt"
+	"github.com/dKesar/telemetry-relay-lab/internal/adaptive"
 	"math/rand"
 	"sort"
 
@@ -34,6 +35,7 @@ const (
 	sourceReceipt
 	expire
 	create
+	probe
 	tick
 	frame
 )
@@ -73,6 +75,7 @@ type engine struct {
 	sourceActive int
 	flights      map[int]Flight
 	result       Result
+	learner      *adaptive.Learner
 }
 
 func Run(ctx context.Context, c Config, policy selector.Policy, trace bool) (Result, error) {
@@ -80,13 +83,23 @@ func Run(ctx context.Context, c Config, policy selector.Policy, trace bool) (Res
 		return Result{}, err
 	}
 	valid := false
-	for _, p := range selector.Policies() {
+	for _, p := range ResearchPolicies() {
 		valid = valid || p == policy
 	}
 	if !valid {
 		return Result{}, fmt.Errorf("unknown policy %q", policy)
 	}
 	e := engine{c: c, policy: policy, trace: trace, relays: make([]relayState, len(c.Relays)), flights: make(map[int]Flight), result: Result{Policy: policy, Frames: []Frame{}, Events: []Event{}, Messages: []Message{}}}
+	ids := make([]adaptive.Identity, len(c.Relays))
+	var delay int64
+	for i, r := range c.Relays {
+		ids[i] = adaptive.Identity{ID: r.ID, Prior: r.Availability}
+		delay = max(delay, 2*r.LatencyMS+c.AckDelayMS)
+	}
+	e.learner, _ = adaptive.New(ids)
+	for t := int64(0); t+delay <= c.DurationMS; t += 1000 {
+		e.push(pending{at: t + delay, start: t, kind: probe, attempt: int(t / 1000)})
+	}
 	for t := int64(0); t < c.GenerateUntilMS; t += c.IntervalMS {
 		e.push(pending{at: t, kind: create})
 	}
@@ -123,7 +136,7 @@ func Run(ctx context.Context, c Config, policy selector.Policy, trace bool) (Res
 
 func RunAll(ctx context.Context, c Config, trace bool) (Report, error) {
 	out := Report{Version: Version, Config: c, Results: []Result{}}
-	for _, p := range selector.Policies() {
+	for _, p := range Policies() {
 		r, err := Run(ctx, c, p, trace)
 		if err != nil {
 			return Report{}, err
@@ -243,6 +256,19 @@ func (e *engine) handle(x pending) {
 	if x.kind == tick {
 		return
 	}
+	if x.kind == probe {
+		up := map[string]bool{}
+		for j, r := range e.c.Relays {
+			up[r.ID] = e.upstreamUp(j, x.start, t) && draw(e.c.Seed, x.attempt, r.ID, "health_probe", 0) >= r.LossAt(x.start)
+		}
+		// A probe is request + response allowance. Its separate control channel
+		// is a model assumption; account for it equally for every policy.
+		used := int64(len(e.c.Relays)) * 128
+		e.stats.ProbeBytes += used
+		e.stats.ControlBytes += used
+		_ = e.learner.Observe(t, up)
+		return
+	}
 	if x.kind == expire {
 		if m.done {
 			return
@@ -298,7 +324,7 @@ func (e *engine) handle(x pending) {
 		if m.done {
 			return
 		}
-		if !e.upstreamUp(i, x.start, t) || draw(e.c.Seed, m.ID, r.ID, "uplink_data", x.attempt) < r.DropProbability {
+		if !e.upstreamUp(i, x.start, t) || draw(e.c.Seed, m.ID, r.ID, "uplink_data", x.attempt) < r.LossAt(x.start) {
 			e.log(t, "lost", m, r.ID, "Передача серверу потеряна")
 			return
 		}
@@ -379,7 +405,38 @@ func (e *engine) plan(t int64) error {
 			if e.policy == selector.Random {
 				rng = rand.New(rand.NewSource(e.c.Seed + int64(m.ID)*1000003 + int64(len(existing))))
 			}
-			choices, err := selector.SelectWithExisting(candidates, existing, o, e.policy, rng)
+			var choices []selector.Decision
+			var err error
+			var plan *adaptive.Plan
+			if adaptivePolicy(e.policy) {
+				nodes := make([]adaptive.Node, len(e.c.Relays))
+				old := []string{}
+				for j, r := range e.c.Relays {
+					v := e.candidate(j)
+					local := v.TransferMillis
+					if a := m.assigned[j]; a != nil {
+						old = append(old, r.ID)
+						if a.stored {
+							local = 0
+						}
+					}
+					nodes[j] = adaptive.Node{ID: r.ID, Groups: r.ReportedGroups, Known: r.GroupsKnown, Ready: e.localUp(j, t, t), Queue: v.QueueFraction, FreeBytes: v.FreeBytes, LocalMS: local, ServiceMS: float64(duration(e.relays[j].used+e.c.MessageBytes, r.UplinkBytesPerSec, r.LatencyMS))}
+				}
+				q := 0.
+				if e.c.SourceCapacityBytes > 0 {
+					q = float64(e.stats.SourceBytes) / float64(e.c.SourceCapacityBytes)
+				}
+				p, planErr := e.learner.Choose(t, nodes, old, adaptive.Options{Budget: e.c.Budget, Bytes: e.c.MessageBytes, RemainingMS: float64(remaining), SourceQueue: q, Independent: e.policy == AdaptiveIndependent, NoDeadline: e.policy == AdaptiveNoDeadline, Static: e.policy == AdaptiveStatic})
+				err = planErr
+				plan = &p
+				e.stats.Decisions++
+				e.stats.Evaluated += p.Evaluated
+				for _, id := range p.Chosen {
+					choices = append(choices, selector.Decision{ID: id, Score: p.Utility})
+				}
+			} else {
+				choices, err = selector.SelectWithExisting(candidates, existing, o, e.policy, rng)
+			}
 			if err != nil {
 				return fmt.Errorf("selection at %d ms: %w", t, err)
 			}
@@ -390,6 +447,7 @@ func (e *engine) plan(t int64) error {
 				m.assigned[i] = a
 				e.relays[i].used += e.c.MessageBytes
 				m.Recipients = append(m.Recipients, d.ID)
+				e.stats.Assigned++
 				e.stats.MaxCopies = max(e.stats.MaxCopies, len(m.Recipients)+1)
 				if e.trace {
 					assess := []selector.Assessment{}
@@ -410,7 +468,7 @@ func (e *engine) plan(t int64) error {
 					if e.policy == selector.All {
 						limit = len(e.relays)
 					}
-					e.result.Events = append(e.result.Events, Event{Time: t, Kind: "assigned", Message: m.ID, Node: d.ID, Detail: fmt.Sprintf("Получатель закреплён в бюджете: %d из %d", len(m.Recipients), limit), Candidates: assess, Chosen: []selector.Decision{d}})
+					e.result.Events = append(e.result.Events, Event{Time: t, Kind: "assigned", Message: m.ID, Node: d.ID, Detail: fmt.Sprintf("Получатель закреплён в бюджете: %d из %d", len(m.Recipients), limit), Candidates: assess, Chosen: []selector.Decision{d}, Plan: plan})
 				}
 				existing = append(existing, e.candidate(i))
 			}
@@ -531,5 +589,7 @@ func (e *engine) recordFrame(t int64) {
 	for _, key := range keys {
 		f.Flights = append(f.Flights, e.flights[key])
 	}
+	f.Health = e.learner.Health()
+	f.Pairs = e.learner.Pairs()
 	e.result.Frames = append(e.result.Frames, f)
 }

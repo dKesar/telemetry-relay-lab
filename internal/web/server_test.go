@@ -1,6 +1,7 @@
 package web
 
 import (
+	"archive/zip"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -13,6 +14,37 @@ import (
 
 	"github.com/dKesar/telemetry-relay-lab/internal/sim"
 )
+
+func TestEmbeddedEvidenceAndDataArchive(t *testing.T) {
+	h := Handler()
+	w := request(t, h, "GET", "/research.html", "", "")
+	if w.Code != 200 || !strings.Contains(w.Body.String(), sim.Version) || !strings.Contains(w.Header().Get("Content-Security-Policy"), "style-src 'unsafe-inline'") {
+		t.Fatal("missing or blocked evidence page")
+	}
+	w = request(t, h, "GET", "/evidence-data.zip", "", "")
+	if w.Code != 200 || w.Header().Get("Content-Type") != "application/zip" {
+		t.Fatal("missing data archive")
+	}
+	z, err := zip.NewReader(bytes.NewReader(w.Body.Bytes()), int64(w.Body.Len()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(z.File) != 4 {
+		t.Fatal("incomplete research archive")
+	}
+	f, err := z.Open("summary.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+	var report struct {
+		Model  string `json:"model"`
+		Checks int    `json:"validated_runs"`
+	}
+	if err := json.NewDecoder(f).Decode(&report); err != nil || report.Model != sim.Version || report.Checks < 1 {
+		t.Fatal("stale evidence archive", err)
+	}
+}
 
 func request(t *testing.T, h http.Handler, method, path, body, origin string) *httptest.ResponseRecorder {
 	t.Helper()
@@ -60,7 +92,7 @@ func TestAPIProducesGoReport(t *testing.T) {
 	if err := json.Unmarshal(w.Body.Bytes(), &report); err != nil {
 		t.Fatal(err)
 	}
-	if len(report.Results) != 5 || report.Version != sim.Version {
+	if len(report.Results) != len(sim.Policies()) || report.Version != sim.Version {
 		t.Fatal("incorrect report")
 	}
 	direct, err := sim.RunAll(context.Background(), c, true)

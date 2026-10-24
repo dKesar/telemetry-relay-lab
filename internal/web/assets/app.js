@@ -2,11 +2,11 @@
 
 // The algorithm runs in Go. JavaScript only requests and replays a report.
 const $ = (id) => document.getElementById(id);
-const labels = { random: "Случайный выбор", availability: "Без штрафа за риск", diverse: "Жёсткое разнесение", risk_aware: "С учётом риска", all: "Всем (больший бюджет)" };
+const labels = { random: "Случайный выбор", availability: "Без штрафа за риск", diverse: "Жёсткое разнесение", risk_aware: "Старый метод с риском", all: "Всем (больший бюджет)",adaptive:"Адаптивный набор копий" };
 const kinds = { assigned: "Назначение", created: "Создано", transfer: "Передача", stored: "Сохранено", delivered: "Доставлено", duplicate: "Дубликат", ack: "Квитанция", ack_lost: "Потеря ACK", receipt: "Получен ACK", expired: "Просрочено", rejected: "Отклонено", lost: "Потеря" };
-const colors = { availability: "#b88a63", risk_aware: "#4f8052", random: "#8b8f9c", diverse: "#7599b0", all: "#927b9c" };
+const colors = { availability: "#b88a63", risk_aware: "#657da0", random: "#8b8f9c", diverse: "#7599b0", all: "#927b9c",adaptive:"#237b61" };
 let presets = [], config = null, report = null, current = 0, playing = false, lastTick = 0, requestNumber = 0;
-let leftPolicy = "availability", rightPolicy = "risk_aware", lastFrameKey = "";
+let leftPolicy = "risk_aware", rightPolicy = "adaptive", lastFrameKey = "";
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const seconds = (t) => (t / 1000).toFixed(1);
 const bytes = (n) => n < 1024 ? `${n} Б` : `${(n / 1024).toFixed(1)} КиБ`;
@@ -25,7 +25,7 @@ function pickPreset(name) {
   $("ttl").value = config.ttl_ms / 1000; $("rate").value = Math.round(1000 / config.interval_ms);
   $("scenarioName").textContent = config.title; $("description").textContent = config.description;
   for (const b of $("presets").children) { b.classList.toggle("active", b.dataset.name === name); b.setAttribute("aria-pressed", String(b.dataset.name === name)); }
-  build();
+  return build();
 }
 
 async function build() {
@@ -48,7 +48,7 @@ async function build() {
 }
 
 function hydrate(value) {
-  if (!value || value.version !== "timeline-v2" || !value.config || !Array.isArray(value.config.relays) || !Array.isArray(value.results) || value.results.length !== 5) throw new Error("Ожидался журнал временной модели timeline-v2.");
+  if (!value || !["timeline-v2","timeline-v3"].includes(value.version) || !value.config || !Array.isArray(value.config.relays) || !Array.isArray(value.results) || value.results.length !== (value.version==="timeline-v3"?6:5)) throw new Error("Ожидался полный журнал timeline-v2 или timeline-v3.");
   const cfg=value.config, finite=(v)=>typeof v==="number"&&Number.isFinite(v);
   // Go encodes absent, valid empty slices as null. Treat them as empty sets.
   cfg.domains ??= []; cfg.collector_outages ??= [];
@@ -68,15 +68,21 @@ function hydrate(value) {
       if(!finite(f.time_ms)||f.time_ms<=previous||f.time_ms>cfg.duration_ms||!checkStats(f.stats)||!Array.isArray(f.nodes)||f.nodes.length!==expectedIDs.size||new Set(f.nodes.map(n=>n.id)).size!==expectedIDs.size||f.nodes.some(n=>!expectedIDs.has(n.id)||![n.used_bytes,n.capacity_bytes,n.stored,n.reserved].every(finite)))throw new Error("Неверный снимок состояния.");previous=f.time_ms;
     }
     if(r.frames[0].time_ms!==0||previous!==cfg.duration_ms)throw new Error("Журнал должен содержать начало и конец опыта.");
+    for(const f of r.frames)if(f.health&&(!Array.isArray(f.health)||f.health.length!==cfg.relays.length||new Set(f.health.map(h=>h.id)).size!==cfg.relays.length||f.health.some(h=>!cfg.relays.some(n=>n.id===h.id)||!finite(h.estimate)||h.estimate<0||h.estimate>1||!Number.isInteger(h.samples)||h.samples<0)))throw new Error("Неверная история оценок.");
+    if(!Array.isArray(r.messages)||r.messages.length!==r.stats.generated||new Set(r.messages.map(m=>m.id)).size!==r.messages.length||r.messages.some(m=>!Number.isInteger(m.id)||!finite(m.created_ms)||!finite(m.deadline_ms)||!finite(m.delivered_at_ms)||!Array.isArray(m.recipients)||new Set(m.recipients).size!==m.recipients.length||m.recipients.some(id=>!cfg.relays.some(n=>n.id===id))))throw new Error("Неверный журнал сообщений.");
+    for(const e of r.events)if(e.plan&&(!Array.isArray(e.plan.chosen)||!Array.isArray(e.plan.assessments)||![e.plan.expected,e.plan.utility,e.plan.evaluated].every(finite)||e.plan.assessments.some(a=>!expectedIDs.has(a.id)||![a.estimate,a.eta_ms,a.gain,a.cost].every(finite))))throw new Error("Неверное объяснение решения.");
     for(const e of r.events)if(!finite(e.time_ms)||!Object.hasOwn(kinds,e.kind)||!Number.isInteger(e.message)||(e.candidates&&!e.candidates.every(c=>[c.base,c.risk,c.score].every(finite)))||(e.chosen&&!Array.isArray(e.chosen)))throw new Error("Неверное событие журнала.");
     for(const flight of (r.transfers||[]))if(!expectedIDs.has(flight.from)||!expectedIDs.has(flight.to)||!finite(flight.start_ms)||!finite(flight.end_ms)||flight.end_ms<=flight.start_ms)throw new Error("Неверная передача в журнале.");
   }
   report = value; config = clone(value.config); current = 0; lastFrameKey = "";
+  if(!report.results.some(r=>r.policy===rightPolicy))rightPolicy="risk_aware";
+  for(const id of ["left","right"]){const select=$(id).querySelector("select");for(const option of select.options)option.disabled=!report.results.some(r=>r.policy===option.value);select.value=id==="left"?leftPolicy:rightPolicy}
   $("time").max = config.duration_ms; $("time").value = 0; $("play").disabled = false;
   $("scenarioName").textContent = config.title; $("description").textContent = config.description;
   for(const b of $("presets").children){b.classList.toggle("active",b.dataset.name===config.name);b.setAttribute("aria-pressed",String(b.dataset.name===config.name))}
   $("seed").value = config.seed; $("budget").value = config.budget; $("lambda").value = config.lambda; $("ttl").value = config.ttl_ms / 1000; $("rate").value = Math.round(1000 / config.interval_ms);
   renderSummary(); render();
+  document.querySelector('.final-results summary span').textContent=`${report.results.length} стратегий / JSON / CSV`;
 }
 
 function result(policy) { return report.results.find(r => r.policy === policy); }
@@ -167,6 +173,7 @@ function inspect() {
   const d = decisions[decisions.length-1];
   if (!d) { $("decision").innerHTML = '<p class="empty">Нет назначений к текущему моменту. Увеличьте бюджет или перейдите вперёд.</p>'; $("decisionTime").textContent = "—"; return; }
   $("decisionTime").textContent = seconds(d.time_ms) + " с";
+  if(d.plan){const p=d.plan,chosen=new Set(p.chosen);$("decision").innerHTML=`<div class="formula">max: совместная оценка доставки − цена новых копий</div><div class="decision-title">Сообщение #${d.message} → ${esc(p.chosen.join(" + "))}</div><table class="decision-table"><thead><tr><th>Узел</th><th>Оценка</th><th>ETA, с</th><th>Прирост / цена</th></tr></thead><tbody>${p.assessments.map(a=>`<tr class="${chosen.has(a.id)?"chosen":""}"><td>${esc(a.id)}</td><td>${a.estimate.toFixed(3)}</td><td>${(a.eta_ms/1000).toFixed(2)}</td><td>${a.gain.toFixed(3)} / ${a.cost.toFixed(3)}</td></tr>`).join("")}</tbody></table><p class="decision-note">Проверено ${p.evaluated} подмножеств. Полезность ${p.utility.toFixed(3)}. Можно использовать меньше K копий. Будущие отказы и физические метки оптимизатору не передаются.</p>`;return}
   const chosen = new Set(d.chosen.map(x => x.id));
   let formula = rightPolicy === "risk_aware" ? "score = base / (1 + λ × risk)" : rightPolicy === "diverse" ? "сначала min risk, затем max base" : rightPolicy === "random" ? "равновероятный набор допустимых узлов" : rightPolicy === "all" ? "все допустимые узлы" : "score = base; штраф отключён";
   $("decision").innerHTML = `<div class="formula">${esc(formula)}</div><div class="decision-title">Сообщение #${d.message} → выбран узел ${esc(d.node)}</div><table class="decision-table"><thead><tr><th>Узел</th><th>base</th><th>risk</th><th>score</th></tr></thead><tbody>${d.candidates.map(c => `<tr class="${chosen.has(c.id)?"chosen":""}"><td>${esc(c.id)} ${chosen.has(c.id)?"✓":""}</td><td>${c.base.toFixed(3)}</td><td>${c.risk.toFixed(2)}</td><td>${c.score.toFixed(3)}</td></tr>`).join("")}</tbody></table><p class="decision-note">${esc(d.detail)}. base учитывает доступность и текущую очередь. risk отражает сообщённые метки, которые могут быть ошибочными. Физические зависимости известны испытателю и не передаются алгоритму.</p>`;
@@ -194,8 +201,31 @@ function render() {
   const key = `${Math.floor(current/200)}:${leftPolicy}:${rightPolicy}:${requestNumber}`;
   const full = key !== lastFrameKey;
   renderPanel("left",leftPolicy,full); renderPanel("right",rightPolicy,full);
-  if (full) { chart(); inspect(); logs(); lastFrameKey=key; }
+  if (full) { chart(); inspect(); logs(); renderEvidence(); lastFrameKey=key; }
 }
+
+function renderEvidence(){
+  const cfg=report.config,left=frameAt(result(leftPolicy)).stats,right=frameAt(result(rightPolicy)).stats;
+  const delta=(right.delivery_rate-left.delivery_rate)*100,oldBytes=left.data_bytes+left.control_bytes,newBytes=right.data_bytes+right.control_bytes;
+  let budgetOK=true,deadlineOK=true;
+  for(const r of report.results)for(const m of r.messages||[]){const limit=r.policy==="all"?cfg.relays.length:cfg.budget;budgetOK&&=m.recipients.length<=limit&&new Set(m.recipients).size===m.recipients.length;deadlineOK&&=m.delivered_at_ms<0||m.delivered_at_ms>=m.created_ms&&m.delivered_at_ms<=m.deadline_ms}
+  const balanced=report.results.every(r=>r.frames.every(f=>f.stats.generated===f.stats.delivered+f.stats.expired+f.stats.rejected+f.stats.pending));
+  $("captureBanner").textContent=`${report.version} · ${cfg.name} · seed ${cfg.seed} · K ${cfg.budget} · ${seconds(current)} с · вычислительная модель`;
+  $("proofCards").innerHTML=`<div><span>Δ доставки справа к слева</span><strong>${delta>=0?"+":""}${delta.toFixed(1)} п.п.</strong></div><div><span>Экономия байтов к этому моменту</span><strong>${oldBytes?(100*(1-newBytes/oldBytes)).toFixed(1)+"%":"—"}</strong></div><div><span>Проверка полного журнала</span><strong class="${budgetOK&&deadlineOK&&balanced?"pass":"fail"}">${budgetOK&&deadlineOK&&balanced?"ПРОЙДЕНА":"НАРУШЕНИЕ"}</strong><small>Бюджет ${budgetOK?"✓":"✗"} · TTL ${deadlineOK?"✓":"✗"} · баланс ${balanced?"✓":"✗"}</small></div>`;
+  const r=result(rightPolicy),f=frameAt(r),palette=["#af725a","#687ca4","#237b61","#a27b9f","#8c905e"];
+  if(!f.health){$("learning").innerHTML='<p class="empty">Архив v2 не содержит историю проверок.</p>';return}
+  const x=t=>42+t/cfg.duration_ms*880,y=p=>158-p*125;
+  let svg='';for(let j=0;j<=4;j++){let p=j/4;svg+=`<path d="M 42 ${y(p)} H 922" stroke="#e4ebe6"/>`+svgText(32,y(p)+4,`${p*100}%`,"chart-label","end")}
+  cfg.relays.forEach((relay,i)=>{const color=palette[i%palette.length],points=r.frames.filter(z=>z.time_ms<=current&&z.health).map(z=>{const h=z.health.find(h=>h.id===relay.id);return `${x(z.time_ms)},${y(h.estimate)}`}).join(" ");svg+=`<polyline points="${points}" fill="none" stroke="${color}" stroke-width="2.2"/>`+svgText(60+i*145,16,`Узел ${relay.id}`,"chart-label","start")});
+  for(let j=0;j<=4;j++)svg+=svgText(x(cfg.duration_ms*j/4),185,`${Math.round(cfg.duration_ms*j/4000)} с`,"chart-label");
+  $("learning").innerHTML=`<svg viewBox="0 0 960 200" role="img" aria-label="История оценок доступности узлов">${svg}</svg>`;
+  $("sampleCount").textContent=`${f.health[0]?.samples||0} в окне / ${f.health[0]?.informative||0} информативных`;
+}
+
+const shots={shared_failure:{left:"availability",time:18000},unknown_topology:{left:"risk_aware",time:60000},deadline_pressure:{left:"risk_aware",time:45000},overload:{left:"risk_aware",time:45000},weak_alternative:{left:"risk_aware",time:45000}};
+function setProofMode(enabled){document.body.classList.toggle("proof-mode",enabled);$("proofMode").textContent=enabled?"Обычный режим":"Режим скриншота"}
+$("proofMode").addEventListener("click",()=>setProofMode(!document.body.classList.contains("proof-mode")));
+for(const button of document.querySelectorAll("[data-shot]"))button.addEventListener("click",async()=>{const name=button.dataset.shot,s=shots[name];if(!presets.some(p=>p.name===name)){showError("Этот сценарий отсутствует в офлайн-файле. Откройте полную демонстрацию.");return}await pickPreset(name);if(report?.config.name!==name)return;leftPolicy=s.left;rightPolicy="adaptive";$("left").querySelector("select").value=leftPolicy;$("right").querySelector("select").value=rightPolicy;current=s.time;lastFrameKey="";render();renderSummary();$("captureArea").scrollIntoView?.({block:"start"})});
 
 function download(name, content, type) {
   const url = URL.createObjectURL(new Blob([content],{type})); const a = document.createElement("a"); a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -234,12 +264,15 @@ $("import").addEventListener("change",async e=>{
 
 async function init() {
   try{
-    if(window.RELAY_OFFLINE){for(const field of $("settings").querySelectorAll("input,select"))field.disabled=true;$("build").disabled=true;$("build").textContent="Параметры сохранённого опыта"}
+    if(window.RELAY_OFFLINE){for(const field of $("settings").querySelectorAll("input,select"))field.disabled=true;$("build").disabled=true;$("build").textContent="Параметры сохранённого опыта";$("researchLink").removeAttribute("href");$("researchLink").textContent="отдельном файле evidence.html"}
     const response=await fetch("/api/presets");if(!response.ok)throw new Error("Нет соединения с Go-сервером");presets=await response.json();
     $("presetCount").textContent=`${String(presets.length).padStart(2,"0")} воспроизводимых сценариев`;
     for(const [i,p] of presets.entries()){const b=document.createElement("button");b.className="preset";b.dataset.name=p.name;b.innerHTML=`<span class="preset-number">ОПЫТ ${String(i+1).padStart(2,"0")}</span>${esc(p.title)}`;b.addEventListener("click",()=>pickPreset(p.name));$("presets").append(b)}
+    for(const b of document.querySelectorAll("[data-shot]"))b.disabled=!presets.some(p=>p.name===b.dataset.shot);
     if(!presets.length)throw new Error("Список сценариев пуст");
-    pickPreset(presets[0].name);
+    const query=new URLSearchParams(location.search),name=query.get("preset");
+    await pickPreset(presets.some(p=>p.name===name)?name:presets[0].name);
+    if(report){const left=query.get("left"),right=query.get("right");if(report.results.some(r=>r.policy===left))leftPolicy=left;if(report.results.some(r=>r.policy===right))rightPolicy=right;$("left").querySelector("select").value=leftPolicy;$("right").querySelector("select").value=rightPolicy;const t=Number(query.get("t"));if(Number.isFinite(t)&&t>=0)current=t;setProofMode(query.get("proof")==="1");lastFrameKey="";render();renderSummary()}
   }catch(error){showError(error.message)}
 }
 init();requestAnimationFrame(animate);
